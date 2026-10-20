@@ -29,6 +29,8 @@ new public repository. It publishes only site/ to the gh-pages branch, then
 configures GitHub's built-in branch publication. It does not require the
 OAuth workflow scope. No branches are force-pushed and no global Git settings
 are changed. Rerun the script after changing the source to publish an update.
+The script explicitly requests a Pages build, waits for its result, and
+checks that the public URL serves the People hub before reporting success.
 The Pages setup follows GitHub's documentation:
 https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 https://docs.github.com/en/rest/pages/pages#create-a-github-pages-site

@@ -62,6 +62,44 @@ pages_method=POST
 if gh api "repos/$repository/pages" >/dev/null 2>&1; then pages_method=PUT; fi
 gh api --method "$pages_method" "repos/$repository/pages" \
   -f build_type=legacy -f 'source[branch]=gh-pages' -f 'source[path]=/' >/dev/null
+
+# Updating the Pages source can leave an unchanged branch without a build.
+# Request publication explicitly and wait before reporting a working URL.
+printf '\nRequesting GitHub Pages build…\n'
+gh api --method POST "repos/$repository/pages/builds" --jq .status
+attempt=0
+build_status=queued
+while [ "$attempt" -lt 60 ]; do
+  build_status=$(gh api "repos/$repository/pages/builds/latest" --jq .status)
+  case "$build_status" in
+    built) break ;;
+    errored)
+      gh api "repos/$repository/pages/builds/latest" --jq '.error.message // "GitHub Pages build failed."' >&2
+      exit 1 ;;
+  esac
+  attempt=$((attempt + 1))
+  sleep 5
+done
+if [ "$build_status" != built ]; then
+  printf 'Pages is still %s. See https://github.com/%s/actions\n' "$build_status" "$repository" >&2
+  exit 1
+fi
+
+pages_url=$(gh api "repos/$repository/pages" --jq .html_url)
+attempt=0
+site_ready=false
+while [ "$attempt" -lt 12 ]; do
+  if page_response=$(curl --fail --silent --show-error --max-time 15 "$pages_url" 2>/dev/null); then
+    case "$page_response" in
+      *'People | Keough School of Global Affairs'*) site_ready=true; break ;;
+    esac
+  fi
+  attempt=$((attempt + 1))
+  sleep 5
+done
+if [ "$site_ready" != true ]; then
+  printf 'Build completed, but the People page is not reachable yet: %s\n' "$pages_url" >&2
+  exit 1
+fi
 printf '\nRepository: https://github.com/%s\n' "$repository"
-printf 'Configured Pages URL: '
-gh api "repos/$repository/pages" --jq .html_url
+printf 'Verified live: %s\n' "$pages_url"
