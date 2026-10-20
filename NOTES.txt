@@ -24,16 +24,21 @@ Optional: sh publish.sh OWNER/DIFFERENT-REPOSITORY-NAME
 Publishing requires network access to GitHub and an authenticated GitHub CLI
 account able to create a public repository and enable GitHub Pages.
 If needed, authenticate in your terminal using gh auth login first.
-The publishing script creates a separate public repository and enables Pages
-with GitHub Actions. Only files in this standalone folder are committed.
-The GitHub Actions workflow publishes site/ on pushes to main.
-The workflow and Pages setup follow GitHub's documentation:
-https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
+The publishing script resumes an existing matching repository or creates a
+new public repository. It publishes only site/ to the gh-pages branch, then
+configures GitHub's built-in branch publication. It does not require the
+OAuth workflow scope. No branches are force-pushed and no global Git settings
+are changed. Rerun the script after changing the source to publish an update.
+The Pages setup follows GitHub's documentation:
+https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 https://docs.github.com/en/rest/pages/pages#create-a-github-pages-site
 
-This session's shell could not resolve api.github.com or conductor.nd.edu.
-The connected GitHub app can edit its accessible private repository but
-exposes no repository creation or GitHub Pages administration capability.
+The terminal run created the public repository and uploaded the source. Its
+workflow push was rejected for missing OAuth workflow scope. The connected
+GitHub app then prepared gh-pages with the complete site and local publishing
+was changed to branch publication. The shell still cannot resolve
+api.github.com; the connector has no Pages administration capability.
+The final Pages setting must be made from a terminal with GitHub access.
 
 Validation in this session: 18 generated HTML pages, 268 local links, and 91
 image references checked without errors. One main heading per page and image
