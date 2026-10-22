@@ -1,6 +1,6 @@
 PEOPLE HUB MOCKUP
 
-Open site/index.html to review the hub. The five sidebar categories, thirteen
+Run python3 dev.py to review the hub. The five sidebar categories, thirteen
 subcategories, and twelve profile links open static pages (31 pages total).
 No dependencies or backend are needed. Groups without sample people display
 "Profiles coming soon." Some sample people belong to more than one group.
@@ -9,9 +9,10 @@ The markup follows the existing NDT4 header, page, section navigation, and
 People Card components. The official NDT4 stylesheet loads from:
 https://conductor.nd.edu/stylesheets/themes/ndt/4.0/ndt.css
 
-assets/site.css holds small mockup-specific additions. assets/fallback.css
-loads only if the official stylesheet fails, allowing an offline preview.
-The fallback is an approximation and is not the official NDT4 stylesheet.
+The official stylesheet is the only stylesheet loaded. No custom CSS,
+inline styles, or design-token overrides are included. Spacing and layout use
+documented NDT4 components and utility classes. The theme requires a network
+connection; there is no substitute offline theme.
 
 People and roles are fictional. All profile images use a neutral placeholder.
 The wide photo is reused from the existing saved People mockup in this
@@ -22,7 +23,9 @@ webtheme.nd.edu. The site requests no indexing.
 The compact fixed navigation follows www.nd.edu: the main header scrolls
 away, then NDT4's header-nav-fixed component appears. assets/ndt.js is the
 official NDT4 runtime copied from conductor.nd.edu/javascripts/themes/ndt/4.0/ndt.js.
-assets/shield.svg is the gold shield from www.nd.edu/assets/images/icons/ndt4-v1.svg.
+assets/ndt4-v1.svg is the unchanged official icon sprite from
+www.nd.edu/assets/images/icons/ndt4-v1.svg. The menu and fixed-navigation shield
+use its symbols with NDT4's native icon sizing.
 The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's three-level section navigation, including current-page
 highlighting. Third-level links appear only for the active parent category;
@@ -33,7 +36,16 @@ The People hub uses NDT4's Inset Page Header: breadcrumbs, title, and lede on
 the left, with the wide image on the right. The sidebar and introductory copy
 begin below it, matching the layout at giving.nd.edu/giving-societies/.
 On phones the image stacks above the breadcrumbs, title, and lede.
-The breadcrumb trail includes the current page, matching the reference.
+Breadcrumbs follow NDT4's default behavior, which omits the current page from
+the visible trail. Focus indicators, sidebar links, and cards also use the
+theme's defaults. Custom breadcrumb rules and sidebar chevrons were removed.
+
+Component references:
+https://webtheme.nd.edu/?path=/story/collections-page-header-page-header-inset--with-lede
+https://webtheme.nd.edu/?path=/story/components-cards-card-people--primary
+https://webtheme.nd.edu/?path=/story/collections-card-listing--people
+https://webtheme.nd.edu/?path=/story/components-navigation-sidebar--multi-level
+https://webtheme.nd.edu/?path=/docs/foundation-utilities--docs
 
 Local dev server (opens the browser): python3 dev.py
 Dev URL: http://127.0.0.1:4173/
@@ -60,10 +72,11 @@ The initial workflow push was rejected for missing OAuth workflow scope.
 Publication now uses GitHub Pages' built-in branch publication from gh-pages;
 no workflow scope is required. Source is maintained on main.
 
-Latest local validation (2026-10-22): all 31 generated pages and 1,709 local
-file references checked without errors. Browser checks at 390, 768, 1024, and
-1600 pixels verified the inset hero, visible breadcrumbs, lede, and content
-below the hero. Desktop and phone checks verified that only the active sidebar
-branch is expanded, including child pages, current-page highlighting, and
-Back navigation. No horizontal overflow or runtime exceptions were found.
-Earlier checks also verified scrolling navigation and the menu dialog.
+Latest validation (2026-10-22): all 31 pages load the official NDT4 stylesheet
+alone, with no inline styles or local CSS files. All 1,709 local file references
+and aria-controls targets passed. The local JavaScript runtime exactly matches
+the official source. Browser checks at 390, 768, 1024, and 1600 pixels verified
+the inset header, lede, and native breadcrumb behavior. Desktop and phone
+checks covered active sidebar branches, child pages, Back navigation, fixed
+navigation, menu controls, keyboard skip-link focus, and profile layout.
+No horizontal overflow or runtime exceptions were found.

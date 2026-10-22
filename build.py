@@ -78,7 +78,7 @@ def sidebar(prefix, current='', child='', profile=False, embedded=False):
     items = ''.join(items)
     hub_current = ' class="current" aria-current="page"' if not current else ''
     nav_label = 'People menu' if embedded else 'People categories'
-    navigation = f'''<nav class="nav-site nav-site--section" aria-label="{nav_label}"><div id="{nav_id}">
+    navigation = f'''<nav class="nav-site" aria-label="{nav_label}"><div id="{nav_id}">
 <ul class="nav-level-1 depth_1 no-bullets"><li class="first last li-has-children active"><a href="{prefix}index.html"{hub_current}>People</a>
 <ul class="nav-level-2 depth_2 no-bullets">{items}</ul></li></ul></div></nav>'''
     return navigation if embedded else f'<aside class="page-sidebar">{navigation}</aside>'
@@ -93,7 +93,7 @@ def card(person, prefix):
 
 
 def grid(people, prefix):
-    return '<ul class="no-bullets grid grid-md-2 grid-lg-3 people-grid">' + ''.join(card(p, prefix) for p in people) + '</ul>'
+    return '<ul class="grid grid-md-2 grid-lg-3">' + ''.join(card(p, prefix) for p in people) + '</ul>'
 
 
 def category_people(category):
@@ -114,7 +114,7 @@ def shell(title, body, prefix='', category='', profile=False, subcategory='', he
         current = ' aria-current="page"' if label == 'People' and not category else ''
         primary_links.append(f'<li{active}><a href="{href}"{current}>{label}</a></li>')
     primary_links = ''.join(primary_links)
-    menu_button = '''<div class="header-util"><div class="header-nav-toggle"><button type="button" class="btn btn--action global-menu-toggle" aria-label="Open site menu" aria-controls="global-menu" aria-haspopup="dialog"><svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><path d="M5 8h22M5 16h22M5 24h22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>'''
+    menu_button = f'''<div class="header-util"><div class="header-nav-toggle"><button type="button" class="btn btn--action global-menu-toggle" aria-label="Open site menu" aria-controls="global-menu" aria-haspopup="dialog"><svg class="icon" aria-hidden="true" focusable="false"><use href="{prefix}assets/ndt4-v1.svg#icon-menu"></use></svg></button></div></div>'''
     extra_crumb = ''
     if category:
         is_parent = not profile and not subcategory
@@ -135,12 +135,10 @@ def shell(title, body, prefix='', category='', profile=False, subcategory='', he
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="A static People hub mockup for {escape(SITE_NAME)}.">
 <title>{escape(title)} | {escape(SITE_NAME)} | University of Notre Dame</title>
-<link id="theme-fallback" rel="stylesheet" href="{prefix}assets/fallback.css" media="not all">
-<link rel="stylesheet" href="https://conductor.nd.edu/stylesheets/themes/ndt/4.0/ndt.css" onerror="document.getElementById('theme-fallback').media='all'">
-<link rel="stylesheet" href="{prefix}assets/site.css">
+<link rel="stylesheet" href="https://conductor.nd.edu/stylesheets/themes/ndt/4.0/ndt.css">
 </head>
-<body class="people-mockup">
-<a class="skip-link" href="#content">Skip to content</a>
+<body>
+<ul class="skip-links"><li><a href="#content">Skip to content</a></li></ul>
 <div class="wrapper nav-top--false" id="wrapper">
 <header class="site-header" id="header">
   <a class="header-mark-mobile" href="https://www.nd.edu/"><img src="{prefix}assets/mobile_mark_s.svg" width="512" height="86" alt="University of Notre Dame"></a>
@@ -170,11 +168,11 @@ def shell(title, body, prefix='', category='', profile=False, subcategory='', he
 </footer>
 </div>
 <div class="header-nav-fixed" id="nav-fixed" hidden><div class="nav-fixed-inner">
-  <a class="ndshield" href="{prefix}index.html" aria-label="{escape(SITE_NAME)} home"><img src="{prefix}assets/shield.svg" width="32" height="36" alt=""></a>
+  <a class="ndshield" href="{prefix}index.html" aria-label="{escape(SITE_NAME)} home"><svg aria-hidden="true" focusable="false"><use href="{prefix}assets/ndt4-v1.svg#shield"></use></svg></a>
   <nav class="nav-primary" aria-label="Fixed primary"><ul>{primary_links}</ul></nav>
   {menu_button}
 </div></div>
-<dialog class="dialog people-site-menu" id="global-menu" aria-labelledby="menu-title">
+<dialog class="dialog" id="global-menu" aria-labelledby="menu-title">
   <div class="dialog-header"><h2 class="dialog-heading" id="menu-title">{escape(SITE_NAME)}</h2><form method="dialog" class="dialog-close"><button type="submit" aria-label="Close site menu">×</button></form></div>
   <div class="dialog-content"><nav aria-label="Site menu"><ul class="no-bullets">{primary_links}</ul></nav>
     <details><summary>Browse people</summary>{sidebar(prefix, category, subcategory, profile, embedded=True)}</details>
@@ -197,9 +195,10 @@ intro_lede = 'Our people bring a world of perspectives to a shared purpose: adva
 intro = '<p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
 sections = []
 for slug, label, description in CATEGORIES:
-    sections.append(f'''<section class="people-section" aria-labelledby="{slug}-heading">
-<div class="section-heading"><h2 id="{slug}-heading">{escape(label)}</h2><a class="category-link" href="{slug}/index.html">View all<span class="visually-hidden"> {escape(label)}</span> <span aria-hidden="true">→</span></a></div>
-<p>{escape(description)}</p>{grid(category_people(slug), '')}</section>''')
+    sections.append(f'''<section class="mbe-4" aria-labelledby="{slug}-heading">
+<h2 class="section-title" id="{slug}-heading">{escape(label)}</h2>
+<p>{escape(description)}</p>{grid(category_people(slug), '')}
+<p><a href="{slug}/index.html">View all {escape(label)}</a></p></section>''')
 write('index.html', shell('People', intro + ''.join(sections), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
@@ -212,9 +211,9 @@ for slug, label, description in CATEGORIES:
 
 for person in PEOPLE:
     slug, name, title, category = person
-    body = f'''<div class="sample-profile">
-<figure class="avatar avatar--xl"><img src="../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure>
-<div><p class="lede">{escape(title)}</p><p>{escape(SITE_NAME)}</p><p class="sample-label">Sample profile</p></div></div>
+    body = f'''<div class="card-container mbe-3"><div class="card card--person card--horizontal">
+<figure class="avatar avatar--lg card-image"><img src="../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure>
+<div class="card-body"><p class="lede">{escape(title)}</p><p>{escape(SITE_NAME)}</p><p>Sample profile</p></div></div></div>
 <h2>Biography</h2><p>This fictional profile illustrates the destination of a People listing. A published profile would introduce the person’s work, expertise, and role in the community.</p>
 <p><a class="btn" href="../{category}/index.html">Back to {escape(LABELS[category])}</a></p>'''
     write(f'profiles/{slug}.html', shell(name, body, '../', category, profile=True))
