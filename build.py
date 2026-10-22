@@ -297,10 +297,11 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 <div class="site-title-group"><p id="site-title" class="site-title"><a href="{prefix}index.html">Institute Title</a></p></div>
 <div class="nav-header">{primary}</div><div class="nav-mobile-util"><ul class="no-bullets"><li><a href="{prefix}index.html">People</a></li><li><a class="nav-menu nav-skip" href="#nav">Menu</a></li></ul></div></header>
 <div id="content" class="site-content"><div class="page-header"></div>
+<div class="page-sidebar">{navigation}</div>
 <main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li><li><a href="{prefix}index.html">People</a> &rsaquo;</li>{crumbs}</ol>
 <h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}
 <div class="grid grid-md-3"><div class="page-primary span-md-2">{body}</div></div></main>
-<div class="page-sidebar">{navigation}</div></div>
+</div>
 <footer id="footer" class="site-footer" role="contentinfo"><div class="footer-org" typeof="Organization"><p><a href="{prefix}index.html" class="site-link">Institute Title</a></p><p>University of Notre Dame</p><p class="copyright"><a href="https://www.nd.edu/copyright/">&copy; 2026 University of Notre Dame</a></p></div><div class="footer-parent"><a href="https://www.nd.edu/" class="mark-footer">University of Notre Dame</a></div></footer>
 </div><script src="https://conductor.nd.edu/javascripts/themes/ndt/3.0/ndt.js"></script></body></html>'''
 
