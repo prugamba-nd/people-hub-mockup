@@ -25,10 +25,15 @@ official NDT4 runtime copied from conductor.nd.edu/javascripts/themes/ndt/4.0/nd
 assets/shield.svg is the gold shield from www.nd.edu/assets/images/icons/ndt4-v1.svg.
 The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's three-level section navigation, including current-page
-highlighting. The same hierarchy is available under Browse people in the menu.
-The People hub uses NDT4's Container Page Header with breadcrumbs, title, and
-the wide image in one hero. The sidebar and introductory copy begin below it,
-following the structure used on www.nd.edu/about/.
+highlighting. Third-level links appear only for the active parent category;
+the People hub shows the five parent categories. Following a parent link
+opens that category and reveals its children. The same behavior is available
+under Browse people in the menu, including on child and profile pages.
+The People hub uses NDT4's Inset Page Header: breadcrumbs, title, and lede on
+the left, with the wide image on the right. The sidebar and introductory copy
+begin below it, matching the layout at giving.nd.edu/giving-societies/.
+On phones the image stacks above the breadcrumbs, title, and lede.
+The breadcrumb trail includes the current page, matching the reference.
 
 Local dev server (opens the browser): python3 dev.py
 Dev URL: http://127.0.0.1:4173/
@@ -51,16 +56,14 @@ The Pages setup follows GitHub's documentation:
 https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 https://docs.github.com/en/rest/pages/pages#create-a-github-pages-site
 
-The terminal run created the public repository and uploaded the source. Its
-workflow push was rejected for missing OAuth workflow scope. The connected
-GitHub app then prepared gh-pages with the complete site and local publishing
-was changed to branch publication. The shell still cannot resolve
-api.github.com; the connector has no Pages administration capability.
-The final Pages setting must be made from a terminal with GitHub access.
+The initial workflow push was rejected for missing OAuth workflow scope.
+Publication now uses GitHub Pages' built-in branch publication from gh-pages;
+no workflow scope is required. Source is maintained on main.
 
-Latest local validation (2026-10-22): all 31 generated pages and 1,740 local
-references checked without errors. Desktop and phone browser checks verified
-fixed navigation on scroll, return to the regular header at the top, menu open
-and close, submenu scrolling, child-page links, and current-page highlighting.
-No horizontal overflow or browser runtime exceptions were found. The earlier
-sandbox restriction is historical; the local server is now running normally.
+Latest local validation (2026-10-22): all 31 generated pages and 1,709 local
+file references checked without errors. Browser checks at 390, 768, 1024, and
+1600 pixels verified the inset hero, visible breadcrumbs, lede, and content
+below the hero. Desktop and phone checks verified that only the active sidebar
+branch is expanded, including child pages, current-page highlighting, and
+Back navigation. No horizontal overflow or runtime exceptions were found.
+Earlier checks also verified scrolling navigation and the menu dialog.

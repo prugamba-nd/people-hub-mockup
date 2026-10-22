@@ -58,6 +58,7 @@ SUBCATEGORIES = {
 
 def sidebar(prefix, current='', child='', profile=False, embedded=False):
     current_attribute = ' class="current" aria-current="page"'
+    nav_id = 'nav_menu' if embedded else 'nav_sub'
     items = []
     for slug, label, _ in CATEGORIES:
         children = []
@@ -68,12 +69,14 @@ def sidebar(prefix, current='', child='', profile=False, embedded=False):
                             f'{current_attribute if selected else ""}>{escape(sublabel)}</a></li>')
         active = ' active' if current == slug else ''
         selected = current == slug and not child and not profile
+        expanded = current == slug
+        child_id = f'{nav_id}-{slug}'
+        hidden = '' if expanded else ' hidden'
         items.append(f'<li class="li-has-children{active}"><a href="{prefix}{slug}/index.html"'
-                     f'{current_attribute if selected else ""}>{escape(label)}</a>'
-                     f'<ul class="nav-level-3 depth_3 no-bullets">{"".join(children)}</ul></li>')
+                     f'{current_attribute if selected else ""} aria-expanded="{str(expanded).lower()}" aria-controls="{child_id}">{escape(label)}</a>'
+                     f'<ul class="nav-level-3 depth_3 no-bullets" id="{child_id}"{hidden}>{"".join(children)}</ul></li>')
     items = ''.join(items)
     hub_current = ' class="current" aria-current="page"' if not current else ''
-    nav_id = 'nav_menu' if embedded else 'nav_sub'
     nav_label = 'People menu' if embedded else 'People categories'
     navigation = f'''<nav class="nav-site nav-site--section" aria-label="{nav_label}"><div id="{nav_id}">
 <ul class="nav-level-1 depth_1 no-bullets"><li class="first last li-has-children active"><a href="{prefix}index.html"{hub_current}>People</a>
@@ -98,7 +101,7 @@ def category_people(category):
     return [p for p in PEOPLE if p[3] == category or p[0] in members]
 
 
-def shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False):
+def shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False, lede=''):
     primary_links = []
     for label, href in [
         ('About', 'https://keough.nd.edu/about/'),
@@ -121,8 +124,9 @@ def shell(title, body, prefix='', category='', profile=False, subcategory='', he
     if profile or subcategory:
         extra_crumb += f'<li aria-current="page">{escape(title)}</li>'
     people_crumb = f'<a href="{prefix}index.html">People</a>' if category else 'People'
-    header_class = 'page-header page-header--container contain bg--dark' if hero else 'page-header'
-    hero_image = f'''<figure class="page-image bg--gradient bg--dark bg--to-top-right"><img src="{prefix}assets/people-wide.jpg" width="800" height="400" alt="Three scholars speaking and exchanging ideas in academic settings." fetchpriority="high"></figure>''' if hero else ''
+    header_class = 'page-header page-header--inset' if hero else 'page-header'
+    hero_image = f'''<figure class="page-image"><img src="{prefix}assets/people-wide.jpg" width="800" height="400" alt="Three scholars speaking and exchanging ideas in academic settings." fetchpriority="high"></figure>''' if hero else ''
+    header_lede = f'\n    <p class="page-lede">{escape(lede)}</p>' if lede else ''
     return f'''<!doctype html>
 <html lang="en" data-theme="light">
 <head>
@@ -154,7 +158,7 @@ def shell(title, body, prefix='', category='', profile=False, subcategory='', he
 <main class="site-content" id="content" tabindex="-1">
   <div class="{header_class}">{hero_image}<div class="page-title-wrapper">
     <nav class="breadcrumbs" aria-label="Breadcrumbs"><ol><li><a href="https://keough.nd.edu/">Home</a></li><li{'' if category else ' aria-current="page"'}>{people_crumb}</li>{extra_crumb}</ol></nav>
-    <h1 class="page-title">{escape(title)}</h1>
+    <h1 class="page-title">{escape(title)}</h1>{header_lede}
   </div></div>
   <div class="page-primary">{body}</div>
   {sidebar(prefix, category, subcategory, profile)}
@@ -189,14 +193,14 @@ def write(relative, content):
     output.write_text(content, encoding='utf-8')
 
 
-intro = '''<p class="lede">Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.</p>
-<p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'''
+intro_lede = 'Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.'
+intro = '<p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
 sections = []
 for slug, label, description in CATEGORIES:
     sections.append(f'''<section class="people-section" aria-labelledby="{slug}-heading">
 <div class="section-heading"><h2 id="{slug}-heading">{escape(label)}</h2><a class="category-link" href="{slug}/index.html">View all<span class="visually-hidden"> {escape(label)}</span> <span aria-hidden="true">→</span></a></div>
 <p>{escape(description)}</p>{grid(category_people(slug), '')}</section>''')
-write('index.html', shell('People', intro + ''.join(sections), hero=True))
+write('index.html', shell('People', intro + ''.join(sections), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
     write(f'{slug}/index.html', shell(label, f'<p class="lede">{escape(description)}</p>' + grid(category_people(slug), '../'), '../', slug))
