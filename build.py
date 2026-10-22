@@ -190,7 +190,8 @@ def write(relative, content):
 
 
 intro_lede = 'Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.'
-write('index.html', shell('People', grid(PEOPLE, ''), hero=True, lede=intro_lede))
+hub_intro = '<h2>Our People</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
     write(f'{slug}/index.html', shell(label, f'<p class="lede">{escape(description)}</p>' + grid(category_people(slug), '../'), '../', slug))
