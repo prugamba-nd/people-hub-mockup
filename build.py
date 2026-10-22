@@ -190,14 +190,7 @@ def write(relative, content):
 
 
 intro_lede = 'Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.'
-intro = '<p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
-sections = []
-for slug, label, description in CATEGORIES:
-    sections.append(f'''<section class="mbe-4" aria-labelledby="{slug}-heading">
-<h2 class="section-title" id="{slug}-heading">{escape(label)}</h2>
-<p>{escape(description)}</p>{grid(category_people(slug), '')}
-<p><a href="{slug}/index.html">View all {escape(label)}</a></p></section>''')
-write('index.html', shell('People', intro + ''.join(sections), hero=True, lede=intro_lede))
+write('index.html', shell('People', grid(PEOPLE, ''), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
     write(f'{slug}/index.html', shell(label, f'<p class="lede">{escape(description)}</p>' + grid(category_people(slug), '../'), '../', slug))

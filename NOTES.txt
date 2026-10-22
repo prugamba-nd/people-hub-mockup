@@ -30,7 +30,7 @@ The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's two-level section navigation, including current-page
 highlighting. The five groups are the first level; there is no People parent
 row. The People link in the primary navigation opens the hub with its heading,
-lede, photo, all group listings, and sidebar. Following a group in the sidebar
+lede, photo, one grid containing all twelve profiles, and sidebar. Following a group in the sidebar
 opens a dedicated page listing that group and reveals its second-level links.
 Only the selected group's children appear. The same behavior is available
 under Browse people in the menu, including on child and profile pages.
