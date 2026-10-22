@@ -1,7 +1,8 @@
 PEOPLE HUB MOCKUP
 
-Run python3 dev.py to review the hub. The five sidebar categories, eight
-subcategories, and thirteen profile links open static pages (27 pages total).
+Run python3 dev.py to review the hub. The NDT4 version at the site root and
+the NDT3 version under /ndt3/ each have five categories, eight subcategories,
+and thirteen profile links (27 pages each).
 No dependencies or backend are needed. Groups without sample people display
 "Profiles coming soon." Some sample people belong to more than one group.
 
@@ -13,6 +14,10 @@ The official stylesheet is the only stylesheet loaded. No custom CSS,
 inline styles, or design-token overrides are included. Spacing and layout use
 documented NDT4 components and utility classes. The theme requires a network
 connection; there is no substitute offline theme.
+
+The NDT3 version uses the official NDT3 stylesheet and runtime, and follows the
+page and sidebar structure in the ND Web Team's NDT3 HTML template repository:
+https://github.com/ndwebgroup/ndt3-html
 
 People and roles are fictional. All profile images use a neutral placeholder.
 The wide photo is reused from the existing saved People mockup in this

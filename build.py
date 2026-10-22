@@ -227,3 +227,97 @@ for person in PEOPLE:
 
 write('.nojekyll', '')
 print(json.dumps({'pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIES.values())) + len(PEOPLE), 'profiles': len(PEOPLE), 'categories': [label for _, label, _ in CATEGORIES]}))
+
+
+NDT3_SITE = SITE / 'ndt3'
+
+
+def write_ndt3(relative, content):
+    output = NDT3_SITE / relative
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(content, encoding='utf-8')
+
+
+def ndt3_sidebar(prefix, current='', child='', profile=False):
+    items = []
+    for slug, label, _ in CATEGORIES:
+        active = current == slug
+        selected = active and not child and not profile
+        parent_class = ' class="active"' if active else ''
+        children = []
+        if active:
+            for subslug, sublabel, _ in SUBCATEGORIES[slug]:
+                selected_child = child == subslug
+                child_class = ' class="active"' if selected_child else ''
+                current_attr = ' class="current" aria-current="page"' if selected_child else ''
+                children.append(f'<li{child_class}><a href="{prefix}{slug}/{subslug}/index.html"{current_attr}>{escape(sublabel)}</a></li>')
+        parent_current = ' class="current" aria-current="page"' if selected else ''
+        nested = f'<ul class="depth_2">{"".join(children)}</ul>' if children else ''
+        items.append(f'<li{parent_class}><a href="{prefix}{slug}/index.html"{parent_current}>{escape(label)}</a>{nested}</li>')
+    return '<nav id="nav" class="nav-site nav-full" role="navigation" aria-label="People categories"><ul class="depth_1">' + ''.join(items) + '</ul></nav>'
+
+
+def ndt3_card(person, prefix):
+    slug, name, title, _ = person
+    return f'''<li class="card-container"><article class="card">
+<figure class="card-image"><img src="{prefix}../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure>
+<div class="card-body"><h3 class="card-title"><a class="card-link" href="{prefix}profiles/{slug}.html">{escape(name)}</a></h3>
+<p>{escape(title)}</p></div></article></li>'''
+
+
+def ndt3_grid(people, prefix):
+    return '<ul class="grid grid-md-2 no-bullets">' + ''.join(ndt3_card(person, prefix) for person in people) + '</ul>'
+
+
+def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False, lede=''):
+    if subcategory:
+        crumbs = f'<li><a href="{prefix}{category}/index.html">{escape(LABELS[category])}</a> &rsaquo;</li><li aria-current="page">{escape(title)}</li>'
+    elif category and profile:
+        crumbs = f'<li><a href="{prefix}{category}/index.html">{escape(LABELS[category])}</a> &rsaquo;</li><li aria-current="page">{escape(title)}</li>'
+    elif category:
+        crumbs = f'<li aria-current="page">{escape(title)}</li>'
+    else:
+        crumbs = '<li aria-current="page">People</li>'
+    hero_image = f'<figure class="page-image inset"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></figure>' if hero else ''
+    page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
+    navigation = ndt3_sidebar(prefix, category, subcategory, profile)
+    primary = f'''<nav id="nav-top" class="nav-top" role="navigation" aria-label="Primary navigation"><div id="primary"><ul>
+<li><a href="https://keough.nd.edu/about/">About</a></li><li><a class="active" href="{prefix}index.html">People</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
+</ul></div></nav>'''
+    return f'''<!DOCTYPE html>
+<html lang="en" class="no-js"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="A static NDT3 People hub mockup for Institute Title.">
+<title>{escape(title)} | Institute Title | University of Notre Dame</title>
+<link rel="stylesheet" type="text/css" href="https://conductor.nd.edu/stylesheets/themes/ndt/3.0/ndt.css">
+</head><body vocab="https://schema.org/" class="nav-top-true">
+<nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
+<div class="wrapper" id="wrapper">
+<header id="header" class="site-header"><p class="mark-header"><a href="https://www.nd.edu/">University of Notre Dame</a></p>
+<div class="site-title-group"><p id="site-title" class="site-title"><a href="{prefix}index.html">Institute Title</a></p></div>
+<div class="nav-header">{primary}</div><div class="nav-mobile-util"><ul class="no-bullets"><li><a href="{prefix}index.html">People</a></li><li><a class="nav-menu nav-skip" href="#nav">Menu</a></li></ul></div></header>
+<div id="content" class="site-content"><div class="page-header"></div>
+<main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li><li><a href="{prefix}index.html">People</a> &rsaquo;</li>{crumbs}</ol>
+<h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}
+<div class="grid grid-md-3"><div class="page-primary span-md-2">{body}</div></div></main>
+<div class="page-sidebar">{navigation}</div></div>
+<footer id="footer" class="site-footer" role="contentinfo"><div class="footer-org" typeof="Organization"><p><a href="{prefix}index.html" class="site-link">Institute Title</a></p><p>University of Notre Dame</p><p class="copyright"><a href="https://www.nd.edu/copyright/">&copy; 2026 University of Notre Dame</a></p></div><div class="footer-parent"><a href="https://www.nd.edu/" class="mark-footer">University of Notre Dame</a></div></footer>
+</div><script src="https://conductor.nd.edu/javascripts/themes/ndt/3.0/ndt.js"></script></body></html>'''
+
+
+ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
+for slug, label, description in CATEGORIES:
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    body = f'<p class="lede">{escape(description)}</p>{landing_heading}{ndt3_grid(category_people(slug), "../")}'
+    write_ndt3(f'{slug}/index.html', ndt3_shell(label, body, '../', slug))
+    for subslug, sublabel, members in SUBCATEGORIES[slug]:
+        people = [p for p in PEOPLE if p[0] in members]
+        listing = ndt3_grid(people, '../../') if people else '<p>Profiles coming soon.</p>'
+        body = f'<p class="lede">{escape(sublabel)} at {escape(SITE_NAME)}.</p>{listing}'
+        write_ndt3(f'{slug}/{subslug}/index.html', ndt3_shell(sublabel, body, '../../', slug, subcategory=subslug))
+for slug, name, title, category in PEOPLE:
+    body = f'''<div class="card-container"><article class="card"><figure class="card-image"><img src="../../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure><div class="card-body"><p class="lede">{escape(title)}</p><p>Institute Title</p><p>Sample profile</p></div></article></div><h2>Biography</h2><p>This fictional profile illustrates the destination of a People listing. A published profile would introduce the person’s work, expertise, and role in the community.</p><p><a class="btn" href="../{category}/index.html">Back to {escape(LABELS[category])}</a></p>'''
+    write_ndt3(f'profiles/{slug}.html', ndt3_shell(name, body, '../', category, profile=True))
+
+print(json.dumps({'ndt3_pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIES.values())) + len(PEOPLE)}))
