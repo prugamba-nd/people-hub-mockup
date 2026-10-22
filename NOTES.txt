@@ -28,8 +28,11 @@ www.nd.edu/assets/images/icons/ndt4-v1.svg. The menu and fixed-navigation shield
 use its symbols with NDT4's native icon sizing.
 The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's two-level section navigation, including current-page
-highlighting. The five groups are the first level; there is no People parent
-row. The People link in the primary navigation opens the hub with its heading,
+highlighting. The five groups are Governance, Faculty, Staff, Scholars & Fellows,
+and Students; there is no People parent row. Postdoctoral Researchers are under
+Scholars & Fellows, not Staff. Its subcategories are Postdoctoral Researchers,
+Visiting Scholars, Fellows, Affiliates, and Past Scholars & Fellows. The People
+link in the primary navigation opens the hub with its heading,
 lede, photo, sidebar, and a single grid containing all twelve profiles. The grid
 has an "Our People" heading and a one-sentence introduction. Following a group in the sidebar
 opens a dedicated page listing that group and reveals its second-level links.

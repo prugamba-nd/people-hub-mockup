@@ -11,7 +11,7 @@ CATEGORIES = [
     ('governance', 'Governance', 'The leadership and advisory community guiding our work.'),
     ('faculty', 'Faculty', 'Scholars connecting disciplines, research, and teaching.'),
     ('staff', 'Staff', 'The team supporting our people, programs, and partnerships.'),
-    ('postdocs-visiting-scholars', 'Visiting Scholars & Fellows', 'Researchers bringing new ideas and perspectives to our community.'),
+    ('scholars-fellows', 'Scholars & Fellows', 'Postdoctoral researchers, visiting scholars, and fellows in our community.'),
     ('students', 'Students', 'Emerging scholars and practitioners working toward a better world.'),
 ]
 PEOPLE = [
@@ -23,8 +23,8 @@ PEOPLE = [
     ('amara-osei', 'Amara Osei', 'Academic Program Manager', 'staff'),
     ('sofia-reyes', 'Sofía Reyes', 'Senior Administrative Coordinator', 'staff'),
     ('declan-murphy', 'Declan Murphy', 'Communications Specialist', 'staff'),
-    ('naledi-dlamini', 'Naledi Dlamini', 'Postdoctoral Research Associate', 'postdocs-visiting-scholars'),
-    ('linnea-bergstrom', 'Linnea Bergström', 'Visiting Research Fellow', 'postdocs-visiting-scholars'),
+    ('naledi-dlamini', 'Naledi Dlamini', 'Postdoctoral Research Associate', 'scholars-fellows'),
+    ('linnea-bergstrom', 'Linnea Bergström', 'Visiting Research Fellow', 'scholars-fellows'),
     ('ravi-menon', 'Ravi Menon', 'Ph.D. Student, Peace Studies and Sociology', 'students'),
     ('clara-nowak', 'Clara Nowak', 'Master of Global Affairs Student', 'students'),
 ]
@@ -40,14 +40,13 @@ SUBCATEGORIES = {
         ('associated-faculty', 'Associated Faculty', ()),
         ('emeriti', 'Emeriti', ()),
     ],
-    'staff': [
+    'staff': [],
+    'scholars-fellows': [
         ('postdoctoral-researchers', 'Postdoctoral Researchers', ('naledi-dlamini',)),
-    ],
-    'postdocs-visiting-scholars': [
-        ('postdocs-visiting-scholars', 'Postdocs & Visiting Scholars', ('naledi-dlamini', 'linnea-bergstrom')),
+        ('visiting-scholars', 'Visiting Scholars', ('linnea-bergstrom',)),
         ('fellows', 'Fellows', ('linnea-bergstrom',)),
-        ('affiliate', 'Affiliate', ()),
-        ('past', 'Past', ()),
+        ('affiliates', 'Affiliates', ()),
+        ('past-scholars-fellows', 'Past Scholars & Fellows', ()),
     ],
     'students': [
         ('graduate', 'Graduate', ('ravi-menon', 'clara-nowak')),
@@ -72,9 +71,14 @@ def sidebar(prefix, current='', child='', profile=False, embedded=False):
         expanded = current == slug
         child_id = f'{nav_id}-{slug}'
         hidden = '' if expanded else ' hidden'
-        items.append(f'<li class="li-has-children{active}"><a href="{prefix}{slug}/index.html"'
-                     f'{current_attribute if selected else ""} aria-expanded="{str(expanded).lower()}" aria-controls="{child_id}">{escape(label)}</a>'
-                     f'<ul class="nav-level-2 depth_2 no-bullets" id="{child_id}"{hidden}>{"".join(children)}</ul></li>')
+        if children:
+            items.append(f'<li class="li-has-children{active}"><a href="{prefix}{slug}/index.html"'
+                         f'{current_attribute if selected else ""} aria-expanded="{str(expanded).lower()}" aria-controls="{child_id}">{escape(label)}</a>'
+                         f'<ul class="nav-level-2 depth_2 no-bullets" id="{child_id}"{hidden}>{"".join(children)}</ul></li>')
+        else:
+            list_class = f' class="{active.strip()}"' if active else ''
+            items.append(f'<li{list_class}><a href="{prefix}{slug}/index.html"'
+                         f'{current_attribute if selected else ""}>{escape(label)}</a></li>')
     items = ''.join(items)
     nav_label = 'People menu' if embedded else 'People categories'
     navigation = f'''<nav class="nav-site" aria-label="{nav_label}"><div id="{nav_id}">
