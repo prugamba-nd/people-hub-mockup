@@ -1,7 +1,9 @@
 PEOPLE HUB MOCKUP
 
-Open site/index.html to review the hub. All five sidebar categories and
-twelve profile links open static pages. No dependencies or backend are needed.
+Open site/index.html to review the hub. The five sidebar categories, thirteen
+subcategories, and twelve profile links open static pages (31 pages total).
+No dependencies or backend are needed. Groups without sample people display
+"Profiles coming soon." Some sample people belong to more than one group.
 
 The markup follows the existing NDT4 header, page, section navigation, and
 People Card components. The official NDT4 stylesheet loads from:
@@ -15,8 +17,22 @@ People and roles are fictional. All profile images use a neutral placeholder.
 The wide photo is reused from the existing saved People mockup in this
 workspace (mockups/people.html); it depicts scholars, not the sample profiles.
 Notre Dame marks are reused from exemplar/assets, originally obtained from
-webtheme.nd.edu. This page is labeled as a mockup and requests no indexing.
+webtheme.nd.edu. The site requests no indexing.
 
+The compact fixed navigation follows www.nd.edu: the main header scrolls
+away, then NDT4's header-nav-fixed component appears. assets/ndt.js is the
+official NDT4 runtime copied from conductor.nd.edu/javascripts/themes/ndt/4.0/ndt.js.
+assets/shield.svg is the gold shield from www.nd.edu/assets/images/icons/ndt4-v1.svg.
+The fixed navigation and menu dialog use NDT4 styling and behavior.
+The sidebar uses NDT4's three-level section navigation, including current-page
+highlighting. The same hierarchy is available under Browse people in the menu.
+The People hub uses NDT4's Container Page Header with breadcrumbs, title, and
+the wide image in one hero. The sidebar and introductory copy begin below it,
+following the structure used on www.nd.edu/about/.
+
+Local dev server (opens the browser): python3 dev.py
+Dev URL: http://127.0.0.1:4173/
+Stop the dev server with Ctrl+C. Local file edits appear after refreshing.
 Rebuild: python3 build.py
 Publish: sh publish.sh
 Optional: sh publish.sh OWNER/DIFFERENT-REPOSITORY-NAME
@@ -42,8 +58,9 @@ was changed to branch publication. The shell still cannot resolve
 api.github.com; the connector has no Pages administration capability.
 The final Pages setting must be made from a terminal with GitHub access.
 
-Validation in this session: 18 generated HTML pages, 268 local links, and 91
-image references checked without errors. One main heading per page and image
-alt attributes were checked. Browser rendering could not be verified because
-Chrome and Quick Look were blocked by this session's sandbox. NDT4 styling
-therefore needs a connected-browser visual check before treating this as final.
+Latest local validation (2026-10-22): all 31 generated pages and 1,740 local
+references checked without errors. Desktop and phone browser checks verified
+fixed navigation on scroll, return to the regular header at the top, menu open
+and close, submenu scrolling, child-page links, and current-page highlighting.
+No horizontal overflow or browser runtime exceptions were found. The earlier
+sandbox restriction is historical; the local server is now running normally.

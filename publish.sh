@@ -91,7 +91,7 @@ site_ready=false
 while [ "$attempt" -lt 12 ]; do
   if page_response=$(curl --fail --silent --show-error --max-time 15 "$pages_url" 2>/dev/null); then
     case "$page_response" in
-      *'People | Keough School of Global Affairs'*) site_ready=true; break ;;
+      *'<title>People | '*'class="people-mockup"'*) site_ready=true; break ;;
     esac
   fi
   attempt=$((attempt + 1))
