@@ -56,6 +56,12 @@ LANDING_GROUPS = {
     'scholars-fellows': ('linnea-bergstrom',),
     'students': ('clara-nowak', 'malia-brooks'),
 }
+LANDING_LABELS = {
+    'governance': 'Leadership',
+    'faculty': 'Core Affiliated Faculty',
+    'scholars-fellows': 'Visiting Scholars & Fellows',
+    'students': 'Undergraduate and Graduate Students',
+}
 
 
 def sidebar(prefix, current='', child='', profile=False, embedded=False):
@@ -201,7 +207,9 @@ hub_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and student
 write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
-    write(f'{slug}/index.html', shell(label, f'<p class="lede">{escape(description)}</p>' + grid(category_people(slug), '../'), '../', slug))
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    body = f'<p class="lede">{escape(description)}</p>{landing_heading}{grid(category_people(slug), "../")}'
+    write(f'{slug}/index.html', shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
         people = [p for p in PEOPLE if p[0] in members]
         listing = grid(people, '../../') if people else '<p>Profiles coming soon.</p>'

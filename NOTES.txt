@@ -30,8 +30,8 @@ The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's two-level section navigation, including current-page
 highlighting. The five groups are Governance, Faculty, Staff, Scholars & Fellows,
 and Students; there is no People parent row. Parent pages show their designated
-default listing, while sidebar children link to the other groups. Governance
-shows Leadership, Faculty shows Core Affiliated Faculty, and Scholars & Fellows
+default listing with a heading, while sidebar children link to the other groups.
+Governance shows Leadership, Faculty shows Core Affiliated Faculty, and Scholars & Fellows
 shows Visiting Scholars and Fellows combined. Students shows graduate and
 undergraduate profiles, with PhD as its child page. Postdoctoral Researchers
 are under Scholars & Fellows, not Staff. The People link in the primary navigation
