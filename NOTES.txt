@@ -36,7 +36,8 @@ Only the selected group's children appear. The same behavior is available
 under Browse people in the menu, including on child and profile pages.
 The People hub uses NDT4's Inset Page Header: breadcrumbs, title, and lede on
 the left, with the wide image on the right. The sidebar and introductory copy
-begin below it, matching the layout at giving.nd.edu/giving-societies/.
+and all twelve profile cards begin below it, matching the layout at
+giving.nd.edu/giving-societies/.
 On phones the image stacks above the breadcrumbs, title, and lede.
 Breadcrumbs follow NDT4's default behavior, which omits the current page from
 the visible trail. Focus indicators, sidebar links, and cards also use the
