@@ -12,6 +12,10 @@
 .sample-label { font-size: .875rem; color: #555; }
 .header-nav-fixed .ndshield img { display: block; width: 2rem; height: 2.25rem; }
 .people-site-menu .dialog-content { overflow-y: auto; }
+.breadcrumbs li[aria-current="page"] { display: list-item; }
+.nav-site .li-has-children > a[aria-expanded] { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.nav-site .li-has-children > a[aria-expanded]::after { content: ''; width: .35rem; height: .35rem; flex-shrink: 0; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(-45deg); }
+.nav-site .li-has-children > a[aria-expanded="true"]::after { transform: rotate(45deg); }
 :focus-visible { outline: 3px solid #005eb8; outline-offset: 4px; }
 @media (max-width: 767px) {
   .section-heading { align-items: flex-start; }
