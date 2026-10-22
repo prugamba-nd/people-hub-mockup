@@ -1,7 +1,7 @@
 PEOPLE HUB MOCKUP
 
-Run python3 dev.py to review the hub. The five sidebar categories, thirteen
-subcategories, and twelve profile links open static pages (31 pages total).
+Run python3 dev.py to review the hub. The five sidebar categories, eight
+subcategories, and thirteen profile links open static pages (27 pages total).
 No dependencies or backend are needed. Groups without sample people display
 "Profiles coming soon." Some sample people belong to more than one group.
 
@@ -29,18 +29,21 @@ use its symbols with NDT4's native icon sizing.
 The fixed navigation and menu dialog use NDT4 styling and behavior.
 The sidebar uses NDT4's two-level section navigation, including current-page
 highlighting. The five groups are Governance, Faculty, Staff, Scholars & Fellows,
-and Students; there is no People parent row. Postdoctoral Researchers are under
-Scholars & Fellows, not Staff. Its subcategories are Postdoctoral Researchers,
-Visiting Scholars, Fellows, Affiliates, and Past Scholars & Fellows. The People
-link in the primary navigation opens the hub with its heading,
-lede, photo, sidebar, and a single grid containing all twelve profiles. The grid
+and Students; there is no People parent row. Parent pages show their designated
+default listing, while sidebar children link to the other groups. Governance
+shows Leadership, Faculty shows Core Affiliated Faculty, and Scholars & Fellows
+shows Visiting Scholars and Fellows combined. Students shows graduate and
+undergraduate profiles, with PhD as its child page. Postdoctoral Researchers
+are under Scholars & Fellows, not Staff. The People link in the primary navigation
+opens the hub with its heading, lede, photo, sidebar, and a single grid containing
+all thirteen profiles. The grid
 has a "Directory" heading and a one-sentence introduction. Following a group in the sidebar
 opens a dedicated page listing that group and reveals its second-level links.
 Only the selected group's children appear. The same behavior is available
 under Browse people in the menu, including on child and profile pages.
 The People hub uses NDT4's Inset Page Header: breadcrumbs, title, and lede on
 the left, with the wide image on the right. The sidebar and introductory copy
-and all twelve profile cards begin below it, matching the layout at
+and all thirteen profile cards begin below it, matching the layout at
 giving.nd.edu/giving-societies/.
 On phones the image stacks above the breadcrumbs, title, and lede.
 Breadcrumbs follow NDT4's default behavior, which omits the current page from

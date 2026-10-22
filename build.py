@@ -27,15 +27,14 @@ PEOPLE = [
     ('linnea-bergstrom', 'Linnea Bergström', 'Visiting Research Fellow', 'scholars-fellows'),
     ('ravi-menon', 'Ravi Menon', 'Ph.D. Student, Peace Studies and Sociology', 'students'),
     ('clara-nowak', 'Clara Nowak', 'Master of Global Affairs Student', 'students'),
+    ('malia-brooks', 'Malia Brooks', 'Undergraduate Student, Political Science and Peace Studies', 'students'),
 ]
 LABELS = {slug: label for slug, label, _ in CATEGORIES}
 SUBCATEGORIES = {
     'governance': [
-        ('leadership', 'Leadership', ('maren-okafor',)),
         ('advisory', 'Advisory', ('isabel-fontaine',)),
     ],
     'faculty': [
-        ('core-affiliated-faculty', 'Core Affiliated Faculty', ('priya-raghunathan', 'yusra-haddad')),
         ('faculty-fellows', 'Faculty Fellows', ('daniel-achterberg',)),
         ('associated-faculty', 'Associated Faculty', ()),
         ('emeriti', 'Emeriti', ()),
@@ -43,15 +42,19 @@ SUBCATEGORIES = {
     'staff': [],
     'scholars-fellows': [
         ('postdoctoral-researchers', 'Postdoctoral Researchers', ('naledi-dlamini',)),
-        ('visiting-scholars', 'Visiting Scholars', ('linnea-bergstrom',)),
-        ('fellows', 'Fellows', ('linnea-bergstrom',)),
         ('affiliates', 'Affiliates', ()),
         ('past-scholars-fellows', 'Past Scholars & Fellows', ()),
     ],
     'students': [
-        ('graduate', 'Graduate', ('ravi-menon', 'clara-nowak')),
-        ('undergraduate', 'Undergraduate', ()),
+        ('phd', 'PhD', ('ravi-menon',)),
     ],
+}
+LANDING_GROUPS = {
+    'governance': ('maren-okafor',),
+    'faculty': ('priya-raghunathan', 'yusra-haddad'),
+    'staff': ('amara-osei', 'sofia-reyes', 'declan-murphy'),
+    'scholars-fellows': ('linnea-bergstrom',),
+    'students': ('clara-nowak', 'malia-brooks'),
 }
 
 
@@ -99,8 +102,8 @@ def grid(people, prefix):
 
 
 def category_people(category):
-    members = {slug for _, _, slugs in SUBCATEGORIES[category] for slug in slugs}
-    return [p for p in PEOPLE if p[3] == category or p[0] in members]
+    members = set(LANDING_GROUPS[category])
+    return [p for p in PEOPLE if p[0] in members]
 
 
 def shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False, lede=''):
