@@ -34,7 +34,7 @@ Scholars & Fellows, not Staff. Its subcategories are Postdoctoral Researchers,
 Visiting Scholars, Fellows, Affiliates, and Past Scholars & Fellows. The People
 link in the primary navigation opens the hub with its heading,
 lede, photo, sidebar, and a single grid containing all twelve profiles. The grid
-has an "Our People" heading and a one-sentence introduction. Following a group in the sidebar
+has a "Directory" heading and a one-sentence introduction. Following a group in the sidebar
 opens a dedicated page listing that group and reveals its second-level links.
 Only the selected group's children appear. The same behavior is available
 under Browse people in the menu, including on child and profile pages.
