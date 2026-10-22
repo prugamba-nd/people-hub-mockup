@@ -27,10 +27,12 @@ assets/ndt4-v1.svg is the unchanged official icon sprite from
 www.nd.edu/assets/images/icons/ndt4-v1.svg. The menu and fixed-navigation shield
 use its symbols with NDT4's native icon sizing.
 The fixed navigation and menu dialog use NDT4 styling and behavior.
-The sidebar uses NDT4's three-level section navigation, including current-page
-highlighting. Third-level links appear only for the active parent category;
-the People hub shows the five parent categories. Following a parent link
-opens that category and reveals its children. The same behavior is available
+The sidebar uses NDT4's two-level section navigation, including current-page
+highlighting. The five groups are the first level; there is no People parent
+row. The People link in the primary navigation opens the hub with its heading,
+lede, photo, all group listings, and sidebar. Following a group in the sidebar
+opens a dedicated page listing that group and reveals its second-level links.
+Only the selected group's children appear. The same behavior is available
 under Browse people in the menu, including on child and profile pages.
 The People hub uses NDT4's Inset Page Header: breadcrumbs, title, and lede on
 the left, with the wide image on the right. The sidebar and introductory copy
@@ -73,7 +75,7 @@ Publication now uses GitHub Pages' built-in branch publication from gh-pages;
 no workflow scope is required. Source is maintained on main.
 
 Latest validation (2026-10-22): all 31 pages load the official NDT4 stylesheet
-alone, with no inline styles or local CSS files. All 1,709 local file references
+alone, with no inline styles or local CSS files. All 1,647 local file references
 and aria-controls targets passed. The local JavaScript runtime exactly matches
 the official source. Browser checks at 390, 768, 1024, and 1600 pixels verified
 the inset header, lede, and native breadcrumb behavior. Desktop and phone

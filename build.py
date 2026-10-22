@@ -74,13 +74,11 @@ def sidebar(prefix, current='', child='', profile=False, embedded=False):
         hidden = '' if expanded else ' hidden'
         items.append(f'<li class="li-has-children{active}"><a href="{prefix}{slug}/index.html"'
                      f'{current_attribute if selected else ""} aria-expanded="{str(expanded).lower()}" aria-controls="{child_id}">{escape(label)}</a>'
-                     f'<ul class="nav-level-3 depth_3 no-bullets" id="{child_id}"{hidden}>{"".join(children)}</ul></li>')
+                     f'<ul class="nav-level-2 depth_2 no-bullets" id="{child_id}"{hidden}>{"".join(children)}</ul></li>')
     items = ''.join(items)
-    hub_current = ' class="current" aria-current="page"' if not current else ''
     nav_label = 'People menu' if embedded else 'People categories'
     navigation = f'''<nav class="nav-site" aria-label="{nav_label}"><div id="{nav_id}">
-<ul class="nav-level-1 depth_1 no-bullets"><li class="first last li-has-children active"><a href="{prefix}index.html"{hub_current}>People</a>
-<ul class="nav-level-2 depth_2 no-bullets">{items}</ul></li></ul></div></nav>'''
+<ul class="nav-level-1 depth_1 no-bullets">{items}</ul></div></nav>'''
     return navigation if embedded else f'<aside class="page-sidebar">{navigation}</aside>'
 
 
