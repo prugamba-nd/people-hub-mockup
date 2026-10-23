@@ -104,7 +104,7 @@ def card(person, prefix):
 
 
 def grid(people, prefix):
-    return '<ul class="grid grid-md-2 grid-lg-3">' + ''.join(card(p, prefix) for p in people) + '</ul>'
+    return '<ul class="grid grid-md-2 grid-lg-4">' + ''.join(card(p, prefix) for p in people) + '</ul>'
 
 
 def category_people(category):
@@ -204,7 +204,7 @@ def write(relative, content):
 
 intro_lede = 'Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.'
 hub_intro = '<h2>Directory</h2>'
-write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, lede=intro_lede))
+write('index.html', shell('People', hub_intro + grid(PEOPLE, '')))
 
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
@@ -311,7 +311,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 
 
 ndt3_intro = '<h2>Directory</h2>'
-write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
+write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, '')))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
     body = f'{landing_heading}{ndt3_grid(category_people(slug), "../")}'
@@ -508,7 +508,7 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 write_ndt24('assets/ndt24-nav.css', NDT24_NAV_CSS)
 
 ndt24_intro = '<h2>Directory</h2>'
-write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))
+write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, '')))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
     body = f'{landing_heading}{ndt24_grid(category_people(slug), "../")}'
@@ -523,3 +523,7 @@ for slug, name, title, category in PEOPLE:
     write_ndt24(f'profiles/{slug}.html', ndt24_shell(name, body, '../', category, profile=True))
 
 print(json.dumps({'ndt24_pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIES.values())) + len(PEOPLE)}))
+
+# Isolated usability alternatives; production mockup variants stay unchanged.
+from comparison import build as build_comparisons
+build_comparisons(globals())
