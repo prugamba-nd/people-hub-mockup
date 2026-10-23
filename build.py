@@ -203,7 +203,7 @@ def write(relative, content):
 
 
 intro_lede = 'Our people bring a world of perspectives to a shared purpose: advancing human dignity through research, education, and engagement.'
-hub_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+hub_intro = '<h2>Directory</h2>'
 write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
@@ -310,7 +310,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 </div><script src="https://conductor.nd.edu/javascripts/themes/ndt/3.0/ndt.js"></script></body></html>'''
 
 
-ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+ndt3_intro = '<h2>Directory</h2>'
 write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
@@ -507,7 +507,7 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 
 write_ndt24('assets/ndt24-nav.css', NDT24_NAV_CSS)
 
-ndt24_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+ndt24_intro = '<h2>Directory</h2>'
 write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
