@@ -1,8 +1,8 @@
 PEOPLE HUB MOCKUP
 
 Run python3 dev.py to review the hub. The NDT4 version at the site root and
-the NDT3 version under /ndt3/ each have five categories, eight subcategories,
-and thirteen profile links (27 pages each).
+the NDT3 and NDT 2.4 versions under /ndt3/ and /ndt24/ each have five
+categories, eight subcategories, and thirteen profile links (27 pages each).
 No dependencies or backend are needed. Groups without sample people display
 "Profiles coming soon." Some sample people belong to more than one group.
 
@@ -23,10 +23,13 @@ https://keough.nd.edu/about/leadership/
 The sidebar uses NDT3's native nav-level classes and appears in the theme's
 page-sidebar region. The HTML template reference is:
 https://github.com/ndwebgroup/ndt3-html
+The NDT3 directory uses four columns at the medium breakpoint and above.
 
 The NDT 2.4 version is under /ndt24/. It uses the archive's official NDT 2.4
 stylesheet, JavaScript, brandbar/titlebar, row-and-column layout, and nav-site
-sidebar structure. Reference documentation:
+sidebar structure. Its institutional bar, titlebar, and right-aligned primary
+navigation follow the markup on the Ansari Institute site. Reference pages:
+https://ansari.nd.edu/
 https://webtheme-archive.netlify.app/v2.4/assets/
 https://webtheme-archive.netlify.app/v2.4/content
 

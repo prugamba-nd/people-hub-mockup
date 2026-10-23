@@ -266,7 +266,7 @@ def ndt3_card(person, prefix):
 
 
 def ndt3_grid(people, prefix):
-    return '<ul class="grid grid-sm-2 grid-md-3">' + ''.join(ndt3_card(person, prefix) for person in people) + '</ul>'
+    return '<ul class="grid grid-sm-2 grid-md-4">' + ''.join(ndt3_card(person, prefix) for person in people) + '</ul>'
 
 
 def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False, lede=''):
@@ -374,9 +374,9 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
     else:
         crumbs = '<li>Directory</li>'
     navigation = ndt24_sidebar(prefix, category, subcategory, profile)
-    primary = f'''<nav class="nav-top" id="nav-top" aria-label="Primary navigation"><div class="row row-container"><ul class="column no-bullets">
-<li><a href="https://keough.nd.edu/about/">About</a></li><li class="active"><a href="{prefix}index.html">Directory</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
-</ul></div></nav>'''
+    primary = f'''<nav id="nav-top" class="nav-top" role="navigation" aria-label="Primary navigation"><div class="row"><div class="column"><div id="primary"><ul class="nav-level-1 depth_1">
+<li><a href="https://keough.nd.edu/about/">About</a></li><li class="active"><a href="{prefix}index.html">People</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
+</ul></div></div></div></nav>'''
     page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
     hero_image = f'<p class="image-default"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></p>' if hero else ''
     return f'''<!DOCTYPE html>
@@ -389,13 +389,14 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
 <div class="wrapper" id="wrapper">
 <header id="header" class="site-header" role="banner">
-<nav class="brandbar theme-bb-blue" aria-label="Department navigation"><div class="row row-container"><ul class="column no-bullets"><li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li><li class="dept"><a href="{prefix}index.html">Institute Title</a></li></ul></div></nav>
-<div class="titlebar theme-tb-gold"><div class="row row-container"><div class="column"><p class="site-title"><a href="{prefix}index.html">Institute Title</a></p><a href="#nav" class="btn-nav-mobile">Menu</a></div></div></div>
-{primary}</header>
+<nav class="brandbar theme-bb-blue" aria-label="Department navigation"><div class="row row-container"><ul class="column"><li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li><li class="dept dept-ksga"><a href="https://keough.nd.edu/">Keough School of Global Affairs</a></li></ul></div></nav>
+<div class="titlebar"><div class="row row-container"><div class="column large-5"><p class="site-title"><a href="{prefix}index.html" accesskey="H">Institute Title</a></p><a href="#nav" class="btn-nav-mobile" aria-label="Open menu"><svg version="1.1" class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><line class="ni ni1" stroke-width="2" stroke-linecap="square" x1="1" y1="2" x2="19" y2="2"/><line class="ni ni2" stroke-width="2" stroke-linecap="square" x1="1" y1="9" x2="19" y2="9"/><line class="ni ni3" stroke-width="2" stroke-linecap="square" x1="1" y1="16" x2="19" y2="16"/></svg><span class="visibility-hidden">Menu</span></a></div><div class="column align-right">{primary}</div></div></div>
+</header>
 <div id="content" class="site-content cf"><div class="row row-container">
 <main class="alpha small-12 medium-8 medium-push-4 large-9 large-push-3 xlarge-10 xlarge-push-2 medium-order-2 columns" role="main">
+<div class="site-content-inner">
 <ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo; </li>{f'<li><a href="{prefix}index.html">Directory</a> &rsaquo; </li>' if category or profile or subcategory else ''}{crumbs}</ol>
-<h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}{body}</main>
+<h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}{body}</div></main>
 <aside class="beta small-12 medium-4 medium-pull-8 large-3 large-pull-9 xlarge-2 xlarge-pull-10 medium-order-1 columns">{navigation}</aside>
 </div></div>
 <footer id="footer" class="site-footer vcard" role="contentinfo"><div class="row row-container"><div class="column"><div class="footer-inner"><p class="copyright org"><a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2026 <a href="https://www.nd.edu/" class="org">University of Notre Dame</a></p><p class="contact-info adr"><a href="{prefix}index.html" class="site-link url fn">Institute Title</a><span class="address"><span class="locality">Notre Dame</span>, <span class="region">IN</span> <span class="postal-code">46556</span> <span class="country-name">USA</span></span></p><a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a></div></div></div></footer>
