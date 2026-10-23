@@ -337,6 +337,119 @@ def write_ndt24(relative, content):
     output.write_text(content, encoding='utf-8')
 
 
+NDT24_NAV_CSS = '''.site-header {
+  background-color: #ffffff;
+  color: #0c2340;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.site-header a {
+  color: #0c2340;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+.site-header a:hover {
+  color: #ae9142;
+}
+
+.site-header a.active,
+.site-header a[aria-current="page"] {
+  color: #ae9142;
+  font-weight: 600;
+}
+
+/* Reset NDT 2.4's dark top-navigation bar inside this white header. */
+.site-header .nav-top {
+  position: static;
+  z-index: auto;
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  color: #0c2340;
+  font: inherit;
+  line-height: normal;
+  text-align: right;
+}
+
+.site-header .nav-top ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-header .nav-top li {
+  display: block;
+  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.site-header .nav-top li a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: #0c2340;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.site-header .nav-top li.active a,
+.site-header .nav-top li a.current,
+.site-header .nav-top li a[aria-current="page"] {
+  color: #ae9142;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.site-header .nav-top li a:hover,
+.site-header .nav-top li a:focus {
+  color: #ae9142;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    height: auto;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .site-header .nav-top {
+    width: 100%;
+    text-align: center;
+  }
+
+  .site-header .nav-top ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+'''
+
+
 def ndt24_sidebar(prefix, current='', child='', profile=False):
     items = []
     for slug, label, _ in CATEGORIES:
@@ -392,12 +505,14 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <meta name="description" content="A static NDT 2.4 People directory mockup for Institute Title.">
 <title>{escape(title)} | Institute Title | University of Notre Dame</title>
 <link rel="stylesheet" href="https://conductor.nd.edu/stylesheets/themes/ndt/2.4/ndt.css">
+<link rel="stylesheet" href="{prefix}assets/ndt24-nav.css">
 </head><body class="nav-top-true">
 <nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
 <div class="wrapper" id="wrapper">
-<header id="header" class="site-header" role="banner">
 <nav class="brandbar theme-bb-blue" aria-label="Department navigation"><div class="row row-container"><ul class="column"><li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li><li class="dept dept-ksga"><a href="https://keough.nd.edu/">Keough School of Global Affairs</a></li></ul></div></nav>
-<div class="titlebar"><div class="row row-container"><div class="column large-5"><p class="site-title"><a href="{prefix}index.html" accesskey="H">Institute Title</a></p><a href="#nav" class="btn-nav-mobile" aria-label="Open menu"><svg version="1.1" class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><line class="ni ni1" stroke-width="2" stroke-linecap="square" x1="1" y1="2" x2="19" y2="2"/><line class="ni ni2" stroke-width="2" stroke-linecap="square" x1="1" y1="9" x2="19" y2="9"/><line class="ni ni3" stroke-width="2" stroke-linecap="square" x1="1" y1="16" x2="19" y2="16"/></svg><span class="visibility-hidden">Menu</span></a></div><div class="column align-right">{primary}</div></div></div>
+<header id="header" class="site-header" role="banner">
+<p class="site-title"><a href="{prefix}index.html" accesskey="H">Institute Title</a></p>
+{primary}
 </header>
 <div id="content" class="site-content cf"><div class="row row-container">
 <main class="alpha small-12 medium-8 medium-push-4 large-9 large-push-3 xlarge-10 xlarge-push-2 medium-order-2 columns" role="main">
@@ -409,6 +524,8 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <footer id="footer" class="site-footer vcard" role="contentinfo"><div class="row row-container"><div class="column"><div class="footer-inner"><p class="copyright org"><a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2026 <a href="https://www.nd.edu/" class="org">University of Notre Dame</a></p><p class="contact-info adr"><a href="{prefix}index.html" class="site-link url fn">Institute Title</a><span class="address"><span class="locality">Notre Dame</span>, <span class="region">IN</span> <span class="postal-code">46556</span> <span class="country-name">USA</span></span></p><a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a></div></div></div></footer>
 </div><script src="https://conductor.nd.edu/javascripts/themes/ndt/2.4/ndt.js"></script></body></html>'''
 
+
+write_ndt24('assets/ndt24-nav.css', NDT24_NAV_CSS)
 
 ndt24_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
 write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))

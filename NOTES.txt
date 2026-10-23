@@ -26,9 +26,10 @@ https://github.com/ndwebgroup/ndt3-html
 The NDT3 directory uses four columns at the medium breakpoint and above.
 
 The NDT 2.4 version is under /ndt24/. It uses the archive's official NDT 2.4
-stylesheet, JavaScript, brandbar/titlebar, row-and-column layout, and nav-site
-sidebar structure. Its institutional bar, titlebar, and right-aligned primary
-navigation follow the markup on the Ansari Institute site. Reference pages:
+stylesheet and JavaScript, row-and-column layout, and nav-site sidebar
+structure. Its primary header uses the supplied white, navy, and gold site
+styles in assets/ndt24-nav.css, with the People menu structure from Ansari.
+Reference pages:
 https://ansari.nd.edu/
 https://webtheme-archive.netlify.app/v2.4/assets/
 https://webtheme-archive.netlify.app/v2.4/content
