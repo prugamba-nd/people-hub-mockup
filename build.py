@@ -374,7 +374,7 @@ def ndt24_sidebar(prefix, current='', child='', profile=False):
 def ndt24_grid(people, prefix):
     cards = []
     for slug, name, title, _category in people:
-        cards.append(f'''<li class="column small-12 medium-6 large-4">
+        cards.append(f'''<li class="column small-12 medium-6 large-3">
 <article><p><img src="{prefix}../assets/avatar-placeholder.svg" width="600" height="600" alt="" loading="lazy"></p>
 <h2 class="entry-title"><a href="{prefix}profiles/{slug}.html">{escape(name)}</a></h2><p>{escape(title)}</p></article></li>''')
     return '<ul class="row no-bullets">' + ''.join(cards) + '</ul>'
