@@ -24,16 +24,14 @@ def build(ns):
 <p>Her current project examines how community organizations and local governments work together to identify priorities and evaluate public services. The project produces comparative case studies and practical resources for research partners.</p>
 <p>Okafor teaches courses on governance, research methods, and public policy. She advises graduate students and mentors undergraduate researchers working with community partners.</p>
 <p>She holds a doctorate in political science, a master’s degree in public policy, and a bachelor’s degree in political science.</p>
-<p><a href="../../faculty/index.html">Back to Faculty</a></p>
 </div></div>'''
     page('full-bio','Maren Okafor',body,True,'Full institute-hosted biography example. Person, biography, and contact details are fictional.',role='Director; Professor of Global Affairs')
     body=f'''<div class="grid grid-lg-3">
-<div class="person-photo order-lg-2"><figure class="avatar"><img src="../assets/daniel-philpott.jpg" width="600" height="600" alt="Daniel Philpott"></figure></div>
+<div class="person-photo order-lg-2"><figure class="avatar"><img src="../assets/daniel-philpott.jpg" width="600" height="600" alt="Daniel Philpott"></figure><dl class="list--grid"><dt>Office</dt><dd>2034 Jenkins and Nanovic Halls<br>Notre Dame, IN 46556</dd><dt>Email</dt><dd><a href="mailto:philpott.1@nd.edu">philpott.1@nd.edu</a></dd></dl></div>
 <div class="person-content span-md-2">
 <p>Daniel Philpott is affiliated with the Kroc Institute for International Peace Studies. His research on reconciliation, religious freedom, and religion in global politics connects with the institute’s focus on peacebuilding.</p>
 <p>His full biography, publications, and contact information are maintained by Notre Dame’s Department of Political Science.</p>
 <p><a class="btn" href="{host}" aria-label="Read Daniel Philpott’s full biography on the Department of Political Science website">Read full biography</a></p>
-<p><a href="../../faculty/index.html">Back to Faculty</a></p>
 </div></div>'''
     page('abridged-bio','Daniel Philpott',body,True,f'Abridged institute biography example. Public profile information: <a href="{host}">Department of Political Science</a>.',role='Professor of Political Science')
     from html import escape
