@@ -3,9 +3,8 @@
 .prototype-bar a {margin-right:1rem;}
 .directory-controls {display:flex; flex-wrap:wrap; gap:1rem; margin:1.5rem 0; align-items:end;}
 .directory-controls label {display:flex; flex-direction:column; gap:.25rem; flex:1 1 10rem;}
-.directory-controls input,.directory-controls select,.directory-controls button,.pagination button {font:inherit; padding:.6rem; max-width:100%;}
+.directory-controls input,.directory-controls select,.directory-controls button {font:inherit; padding:.6rem; max-width:100%;}
 .directory-controls input {min-width:0;}
-.pagination {display:flex;gap:1rem;align-items:center; flex-wrap:wrap; margin:2rem 0;}
 .category-links {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;list-style:none;padding:0;}
 .category-links a {display:block; border:1px solid #ccc;padding:1rem;}
 .prototype-dialog {max-width:36rem;width:calc(100% - 2rem);padding:2rem;border:1px solid #aaa;}
@@ -13,5 +12,3 @@
 button.profile-link {background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}
 
 .directory-controls[hidden] {display:none;}
-
-.pagination:empty {display:none;}
