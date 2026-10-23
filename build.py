@@ -252,21 +252,21 @@ def ndt3_sidebar(prefix, current='', child='', profile=False):
                 current_attr = ' class="current" aria-current="page"' if selected_child else ''
                 children.append(f'<li{child_class}><a href="{prefix}{slug}/{subslug}/index.html"{current_attr}>{escape(sublabel)}</a></li>')
         parent_current = ' class="current" aria-current="page"' if selected else ''
-        nested = f'<ul class="depth_2">{"".join(children)}</ul>' if children else ''
+        nested = f'<ul class="nav-level-2 depth_2">{"".join(children)}</ul>' if children else ''
         items.append(f'<li{parent_class}><a href="{prefix}{slug}/index.html"{parent_current}>{escape(label)}</a>{nested}</li>')
-    return '<nav id="nav" class="nav-site nav-full" role="navigation" aria-label="People categories"><ul class="depth_1">' + ''.join(items) + '</ul></nav>'
+    return '<nav id="nav" class="nav-site nav-full" aria-label="Primary"><ul class="nav-level-1 depth_1">' + ''.join(items) + '</ul></nav>'
 
 
 def ndt3_card(person, prefix):
     slug, name, title, _ = person
-    return f'''<li class="card-container"><article class="card">
-<figure class="card-image"><img src="{prefix}../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure>
-<div class="card-body"><h3 class="card-title"><a class="card-link" href="{prefix}profiles/{slug}.html">{escape(name)}</a></h3>
-<p>{escape(title)}</p></div></article></li>'''
+    return f'''<li class="card card-person hover-bg hover-grow">
+<figure class="card-image"><img class="image-circle" src="{prefix}../assets/avatar-placeholder.svg" width="600" height="600" alt="" loading="lazy"></figure>
+<div class="card-body"><p class="card-title"><a class="card-link" href="{prefix}profiles/{slug}.html">{escape(name)}</a></p>
+<p class="person-title">{escape(title)}</p></div></li>'''
 
 
 def ndt3_grid(people, prefix):
-    return '<ul class="grid grid-md-2 no-bullets">' + ''.join(ndt3_card(person, prefix) for person in people) + '</ul>'
+    return '<ul class="grid grid-sm-2 grid-md-3">' + ''.join(ndt3_card(person, prefix) for person in people) + '</ul>'
 
 
 def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='', hero=False, lede=''):
@@ -296,18 +296,19 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 <header id="header" class="site-header"><p class="mark-header"><a href="https://www.nd.edu/">University of Notre Dame</a></p>
 <div class="site-title-group"><p id="site-title" class="site-title"><a href="{prefix}index.html">Institute Title</a></p></div>
 <div class="nav-header">{primary}</div><div class="nav-mobile-util"><ul class="no-bullets"><li><a href="{prefix}index.html">People</a></li><li><a class="nav-menu nav-skip" href="#nav">Menu</a></li></ul></div></header>
-<div id="content" class="site-content"><div class="page-header"></div>
-<div class="page-sidebar">{navigation}</div>
+<div id="content" class="site-content">
+<div class="page-header"></div>
 <main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li><li><a href="{prefix}index.html">People</a> &rsaquo;</li>{crumbs}</ol>
 <h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}
-<div class="grid grid-md-3"><div class="page-primary span-md-2">{body}</div></div></main>
+{body}</main>
+<aside class="page-sidebar">{navigation}</aside>
 </div>
 <footer id="footer" class="site-footer" role="contentinfo"><div class="footer-org" typeof="Organization"><p><a href="{prefix}index.html" class="site-link">Institute Title</a></p><p>University of Notre Dame</p><p class="copyright"><a href="https://www.nd.edu/copyright/">&copy; 2026 University of Notre Dame</a></p></div><div class="footer-parent"><a href="https://www.nd.edu/" class="mark-footer">University of Notre Dame</a></div></footer>
 </div><script src="https://conductor.nd.edu/javascripts/themes/ndt/3.0/ndt.js"></script></body></html>'''
 
 
 ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
-write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
+write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), lede=intro_lede))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
     body = f'<p class="lede">{escape(description)}</p>{landing_heading}{ndt3_grid(category_people(slug), "../")}'
