@@ -280,6 +280,9 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
         crumbs = '<li aria-current="page">People</li>'
     hero_image = f'<figure class="page-image inset"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></figure>' if hero else ''
     page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
+    page_header = (f'<div class="page-header has-title has-image"><h1 class="page-title">{escape(title)}</h1>'
+                   f'<p class="page-lede">{escape(lede)}</p>{hero_image}</div>' if hero else '<div class="page-header"></div>')
+    main_title = f'<h1 class="page-title">{escape(title)}</h1>{page_lede}'
     navigation = ndt3_sidebar(prefix, category, subcategory, profile)
     primary = f'''<nav id="nav-top" class="nav-top" role="navigation" aria-label="Primary navigation"><div id="primary"><ul>
 <li><a href="https://keough.nd.edu/about/">About</a></li><li><a class="active" href="{prefix}index.html">People</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
@@ -297,9 +300,9 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 <div class="site-title-group"><p id="site-title" class="site-title"><a href="{prefix}index.html">Institute Title</a></p></div>
 <div class="nav-header">{primary}</div><div class="nav-mobile-util"><ul class="no-bullets"><li><a href="{prefix}index.html">People</a></li><li><a class="nav-menu nav-skip" href="#nav">Menu</a></li></ul></div></header>
 <div id="content" class="site-content">
-<div class="page-header"></div>
+{page_header}
 <main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li>{f'<li><a href="{prefix}index.html">People</a> &rsaquo;</li>' if category or profile or subcategory else ''}{crumbs}</ol>
-<h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}
+{main_title}
 {body}</main>
 <aside class="page-sidebar">{navigation}</aside>
 </div>
@@ -308,7 +311,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 
 
 ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
-write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), lede=intro_lede))
+write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
     body = f'<p class="lede">{escape(description)}</p>{landing_heading}{ndt3_grid(category_people(slug), "../")}'
