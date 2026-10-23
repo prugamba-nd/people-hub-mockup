@@ -208,12 +208,12 @@ write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, led
 
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
-    body = f'<p class="lede">{escape(description)}</p>{landing_heading}{grid(category_people(slug), "../")}'
+    body = f'{landing_heading}{grid(category_people(slug), "../")}'
     write(f'{slug}/index.html', shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
         people = [p for p in PEOPLE if p[0] in members]
         listing = grid(people, '../../') if people else '<p>Profiles coming soon.</p>'
-        body = f'<p class="lede">{escape(sublabel)} at {escape(SITE_NAME)}.</p>{listing}'
+        body = listing
         write(f'{slug}/{subslug}/index.html', shell(sublabel, body, '../../', slug, subcategory=subslug))
 
 for person in PEOPLE:
@@ -314,12 +314,12 @@ ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and studen
 write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
-    body = f'<p class="lede">{escape(description)}</p>{landing_heading}{ndt3_grid(category_people(slug), "../")}'
+    body = f'{landing_heading}{ndt3_grid(category_people(slug), "../")}'
     write_ndt3(f'{slug}/index.html', ndt3_shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
         people = [p for p in PEOPLE if p[0] in members]
         listing = ndt3_grid(people, '../../') if people else '<p>Profiles coming soon.</p>'
-        body = f'<p class="lede">{escape(sublabel)} at {escape(SITE_NAME)}.</p>{listing}'
+        body = listing
         write_ndt3(f'{slug}/{subslug}/index.html', ndt3_shell(sublabel, body, '../../', slug, subcategory=subslug))
 for slug, name, title, category in PEOPLE:
     body = f'''<div class="card-container"><article class="card"><figure class="card-image"><img src="../../assets/avatar-placeholder.svg" width="600" height="600" alt=""></figure><div class="card-body"><p class="lede">{escape(title)}</p><p>Institute Title</p><p>Sample profile</p></div></article></div><h2>Biography</h2><p>This fictional profile illustrates the destination of a People listing. A published profile would introduce the person’s work, expertise, and role in the community.</p><p><a class="btn" href="../{category}/index.html">Back to {escape(LABELS[category])}</a></p>'''
@@ -511,12 +511,12 @@ ndt24_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and stude
 write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))
 for slug, label, description in CATEGORIES:
     landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
-    body = f'<p>{escape(description)}</p>{landing_heading}{ndt24_grid(category_people(slug), "../")}'
+    body = f'{landing_heading}{ndt24_grid(category_people(slug), "../")}'
     write_ndt24(f'{slug}/index.html', ndt24_shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
         people = [p for p in PEOPLE if p[0] in members]
         listing = ndt24_grid(people, '../../') if people else '<p>Profiles coming soon.</p>'
-        body = f'<p>{escape(sublabel)} at {escape(SITE_NAME)}.</p>{listing}'
+        body = listing
         write_ndt24(f'{slug}/{subslug}/index.html', ndt24_shell(sublabel, body, '../../', slug, subcategory=subslug))
 for slug, name, title, category in PEOPLE:
     body = f'<p><img src="../../assets/avatar-placeholder.svg" width="600" height="600" alt=""></p><p><strong>{escape(title)}</strong></p><p>Institute Title</p><p>Sample profile</p><h2>Biography</h2><p>This fictional profile illustrates the destination of a directory listing. A published profile would introduce the person’s work, expertise, and role in the community.</p><p><a class="btn" href="../{category}/index.html">Back to {escape(LABELS[category])}</a></p>'
