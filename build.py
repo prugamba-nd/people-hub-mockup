@@ -282,7 +282,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
     page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
     page_header = (f'<div class="page-header has-title has-image"><h1 class="page-title">{escape(title)}</h1>'
                    f'<p class="page-lede">{escape(lede)}</p>{hero_image}</div>' if hero else '<div class="page-header"></div>')
-    main_title = f'<h1 class="page-title">{escape(title)}</h1>{page_lede}'
+    main_title = f'<h1 class="page-title">{escape(title)}</h1>{page_lede}' if not hero else ''
     navigation = ndt3_sidebar(prefix, category, subcategory, profile)
     primary = f'''<nav id="nav-top" class="nav-top" role="navigation" aria-label="Primary navigation"><div id="primary"><ul>
 <li><a href="https://keough.nd.edu/about/">About</a></li><li><a class="active" href="{prefix}index.html">People</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
