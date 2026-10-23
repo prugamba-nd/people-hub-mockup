@@ -337,18 +337,54 @@ def write_ndt24(relative, content):
     output.write_text(content, encoding='utf-8')
 
 
-# Ansari's saved theme and site overrides are vendored in assets/reference.
-# Only replace the institute-specific image logo with our placeholder title.
-NDT24_NAV_CSS = '''.site-title a {
-  background: none;
-  text-indent: 0;
-  display: flex;
-  align-items: center;
-  color: #0c2340;
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  white-space: normal;
-  max-width: calc(100vw - 5rem);
+# Keep Ansari customization scoped to its header and navigation.
+NDT24_NAV_CSS = '''/* Header and navigation rules from the saved Ansari reference.
+   Content uses the original NDT 2.4 layout and styles. */
+@media only screen {
+  .brandbar.theme-bb-blue { background: #0c2340; }
+  .dept { display: none; }
+  .site-title a {
+    background: none;
+    height: 50px;
+    margin: .5em 0;
+    padding: 0;
+    width: 300px;
+    max-width: calc(100vw - 5rem);
+    display: flex;
+    align-items: center;
+    color: #0c2340;
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    white-space: normal;
+  }
+  .btn-nav-mobile { display: block; top: 1.75rem; }
+  .search-form { border-radius: 0; box-shadow: none; }
+  .search-button { background: none; border: 0; border-radius: 0; }
+  .search-button:hover { background: none; border: none; }
+  .nav-top { background: none; border: none; box-shadow: none; display: none; }
+  .nav-top li a { color: #0c2340; padding: .5rem; text-shadow: none; }
+}
+@media only screen and (min-width: 36.250em) {
+  .site-title a { height: 70px; width: 400px; }
+}
+@media only screen and (min-width: 43.75em) {
+  .header-util { display: none; float: none; margin: 1.125rem 0 0; max-width: 13rem; top: 0; }
+  .align-right { text-align: right; }
+  .nav-top-true .nav-top { display: none; text-align: right; }
+  .nav-top li a:hover, .nav-top li.active a {
+    background-color: transparent; border: none; box-shadow: none; color: #ae9142;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .dept { display: block; }
+}
+@media only screen and (min-width: 64em) {
+  .header-util { display: inline-block; }
+  .nav-top-true .nav-top { display: block; }
+  .btn-nav-mobile { display: none; }
+}
+@media only screen and (min-width: 75em) {
+  .nav-top li a { padding: .75rem; }
 }
 '''
 
@@ -409,7 +445,6 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <meta name="description" content="A static NDT 2.4 People directory mockup for Institute Title.">
 <title>{escape(title)} | Institute Title | University of Notre Dame</title>
 <link rel="stylesheet" href="{prefix}assets/reference/styles/ndt.css">
-<link rel="stylesheet" href="{prefix}assets/reference/styles/site.1737718680.css">
 <link rel="stylesheet" href="{prefix}assets/ndt24-nav.css">
 </head><body class="nav-top-true">
 <nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
@@ -458,7 +493,6 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
       </div>
     </div><!-- .titlebar -->
   </header>
-<div class="site-hero" aria-hidden="true"></div>
 <div id="content" class="site-content cf"><div class="row row-container">
 <main class="alpha small-12 medium-8 medium-push-4 large-9 large-push-3 xlarge-10 xlarge-push-2 medium-order-2 columns" role="main">
 <div class="site-content-inner">

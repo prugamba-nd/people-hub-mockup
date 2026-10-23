@@ -1,11 +1,48 @@
-.site-title a {
-  background: none;
-  text-indent: 0;
-  display: flex;
-  align-items: center;
-  color: #0c2340;
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  white-space: normal;
-  max-width: calc(100vw - 5rem);
+/* Header and navigation rules from the saved Ansari reference.
+   Content uses the original NDT 2.4 layout and styles. */
+@media only screen {
+  .brandbar.theme-bb-blue { background: #0c2340; }
+  .dept { display: none; }
+  .site-title a {
+    background: none;
+    height: 50px;
+    margin: .5em 0;
+    padding: 0;
+    width: 300px;
+    max-width: calc(100vw - 5rem);
+    display: flex;
+    align-items: center;
+    color: #0c2340;
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    white-space: normal;
+  }
+  .btn-nav-mobile { display: block; top: 1.75rem; }
+  .search-form { border-radius: 0; box-shadow: none; }
+  .search-button { background: none; border: 0; border-radius: 0; }
+  .search-button:hover { background: none; border: none; }
+  .nav-top { background: none; border: none; box-shadow: none; display: none; }
+  .nav-top li a { color: #0c2340; padding: .5rem; text-shadow: none; }
+}
+@media only screen and (min-width: 36.250em) {
+  .site-title a { height: 70px; width: 400px; }
+}
+@media only screen and (min-width: 43.75em) {
+  .header-util { display: none; float: none; margin: 1.125rem 0 0; max-width: 13rem; top: 0; }
+  .align-right { text-align: right; }
+  .nav-top-true .nav-top { display: none; text-align: right; }
+  .nav-top li a:hover, .nav-top li.active a {
+    background-color: transparent; border: none; box-shadow: none; color: #ae9142;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .dept { display: block; }
+}
+@media only screen and (min-width: 64em) {
+  .header-util { display: inline-block; }
+  .nav-top-true .nav-top { display: block; }
+  .btn-nav-mobile { display: none; }
+}
+@media only screen and (min-width: 75em) {
+  .nav-top li a { padding: .75rem; }
 }
