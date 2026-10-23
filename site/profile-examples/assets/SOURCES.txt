@@ -5,3 +5,4 @@ Daniel Philpott: https://politicalscience.nd.edu/people/daniel-philpott/
 Image: https://politicalscience.nd.edu/assets/603529/600x600/philpott_photo_head_shot.jpg
 The institute title is a placeholder. Maren Okafor and her full biography are fictional.
 Native component references: https://webtheme.nd.edu/?path=/docs/components-cards-card-people--docs and https://webtheme.nd.edu/?path=/docs/components-pagination--docs
+Biography layout reference: https://president.nd.edu/about/leadership-and-staff/ann-firth/ (native page-title person-name, person-title, grid grid-lg-3, person-photo order-lg-2, avatar, list--grid, and person-content span-md-2). No reference biography text was copied.
