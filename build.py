@@ -254,7 +254,7 @@ def ndt3_sidebar(prefix, current='', child='', profile=False):
         parent_current = ' class="current" aria-current="page"' if selected else ''
         nested = f'<ul class="nav-level-2 depth_2">{"".join(children)}</ul>' if children else ''
         items.append(f'<li{parent_class}><a href="{prefix}{slug}/index.html"{parent_current}>{escape(label)}</a>{nested}</li>')
-    return '<nav id="nav" class="nav-site nav-full" aria-label="Primary"><ul class="nav-level-1 depth_1">' + ''.join(items) + '</ul></nav>'
+    return '<nav id="nav" class="nav-site nav-section" aria-label="People categories"><ul class="nav-level-1 depth_1">' + ''.join(items) + '</ul></nav>'
 
 
 def ndt3_card(person, prefix):
