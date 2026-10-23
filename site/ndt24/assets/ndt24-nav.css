@@ -1,6 +1,7 @@
 /* Header and navigation rules from the saved Ansari reference.
    Content uses the original NDT 2.4 layout and styles. */
 @media only screen {
+  .site-header { background: #fff; }
   .brandbar.theme-bb-blue { background: #0c2340; }
   .dept { display: none; }
   .site-title a {
