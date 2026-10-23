@@ -35,7 +35,7 @@ ${controls?`<form class="directory-controls" id="search-form"><label>Search ${gr
 <div class="directory-controls" ${gateway||featured?'hidden':''} id="filters"><label>Discipline<select id="discipline"><option value="">All disciplines</option>${options('discipline',discipline)}</select></label><label>Region of expertise<select id="region"><option value="">All regions</option>${options('region',region)}</select></label><label>Affiliation<select id="status"><option value="current" ${status==='current'?'selected':''}>Current</option><option value="past" ${status==='past'?'selected':''}>Past</option><option value="all" ${status==='all'?'selected':''}>Current and past</option></select></label><button id="reset" type="button">Clear search and filters</button></div>`:''}
 ${gateway?'<ul class="category-links">'+Object.entries(groups).map(([g,label])=>`<li><a href="${url(g)}"><strong>${label}</strong><br>${e({governance:'Institute leadership and advisory council',faculty:'Core affiliates and faculty groups',staff:'The team supporting the institute','scholars-fellows':'Visiting scholars, fellows, and postdocs',students:'Undergraduate, graduate, and PhD groups'}[g])}</a></li>`).join('')+'</ul>':''}
 ${featured?'<h2>Featured community members</h2><p>A curated selection across institute roles. This is not the complete directory.</p><p><a href="?search=1">Browse the full directory</a></p>':''}
-<p id="result-count" role="status" aria-live="polite"></p>${screenshot?'<nav class="pagination" aria-label="Directory pages above results" id="pagination-top"></nav>':''}<ul id="results" class="grid grid-sm-2 grid-md-4"></ul><nav class="pagination" aria-label="Directory pages" id="pagination"></nav>
+<p id="result-count" role="status" aria-live="polite"></p>${screenshot?'<div class="pagination" role="navigation" aria-label="Pagination above results" id="pagination-top"></div>':''}<ul id="results" class="grid grid-sm-2 grid-md-4"></ul><div class="pagination" role="navigation" aria-label="Pagination" id="pagination"></div>
 <dialog class="prototype-dialog" aria-labelledby="profile-name"><button id="close-profile" autofocus>Close profile</button><h2 id="profile-name"></h2><div id="profile-detail"></div></dialog>`;
 function save(){const s=new URLSearchParams(location.search);for(const [k,v] of Object.entries({q,discipline,region,status,page:String(page)})){if(v)s.set(k,v);else s.delete(k);}if(searched)s.set('search','1');history.replaceState(null,'',currentPath+'?'+s);}
 function render(){
@@ -47,12 +47,27 @@ function render(){
  const visible=small||featured?list:list.slice((page-1)*pageSize,page*pageSize);
  document.querySelector('#result-count').textContent=featured?'':list.length?`${small?'Showing all '+list.length:`Showing ${(page-1)*pageSize+1}–${Math.min(page*pageSize,list.length)} of ${list.length}`} profiles${!small?' · '+(status==='all'?'Current and past':status==='past'?'Past affiliates':'Current affiliates'):''}${screenshot&&!group?' · Leadership first, then surname A–Z':' · Last name A–Z'}`:'No matching profiles. Try a different search or clear the filters.';
  document.querySelector('#results').innerHTML=visible.map(p=>`<li class="card card-person"><figure class="card-image"><img class="image-circle" src="../../assets/avatar-placeholder.svg" width="600" height="600" alt="" loading="lazy"></figure><div class="card-body"><h3 class="card-title"><button class="profile-link" data-profile="${p.id}">${e(p.name)}</button></h3><p>${e(p.role)}</p><p>${e(p.discipline)} · ${e(p.region)}</p></div></li>`).join('');
- document.querySelector('#pagination').innerHTML=small||featured||!list.length||(screenshot&&list.length<=24)?'':`<button data-page="${page-1}" ${page===1?'disabled':''}>Previous</button><span>Page ${page} of ${pages}</span><button data-page="${page+1}" ${page===pages?'disabled':''}>Next</button>`;
- if(screenshot)document.querySelector('#pagination-top').innerHTML=document.querySelector('#pagination').innerHTML;
+ const visiblePages=[];
+ let start=Math.max(1,page-2),end=Math.min(pages,page+2);
+ if(start<=3){start=1;end=Math.min(pages,5);}
+ if(end>=pages-2){start=Math.max(1,pages-4);end=pages;}
+ const pageLink=(n,label,attrs='')=>{const next=new URLSearchParams(location.search);next.set('page',String(n));return `<a ${attrs} data-page="${n}" href="${e(currentPath+'?'+next)}">${label}</a>`;};
+ if(start>1){visiblePages.push(pageLink(1,'1','aria-label="Page 1"'));if(start>2)visiblePages.push('<span class="gap">…</span>');}
+ for(let n=start;n<=end;n++)visiblePages.push(n===page?`<span class="current" aria-current="page">${n}</span>`:pageLink(n,n,`aria-label="Page ${n}"`));
+ if(end<pages){if(end<pages-1)visiblePages.push('<span class="gap">…</span>');visiblePages.push(pageLink(pages,pages,`aria-label="Page ${pages}"`));}
+ const pagination=pages<=1||small||featured?'':[
+ page>1?pageLink(page-1,'Previous','class="previous_page" aria-label="Previous page" rel="prev"'):'<span class="previous_page disabled" aria-label="Previous page">Previous</span>',
+ ...visiblePages,
+ page<pages?pageLink(page+1,'Next','class="next_page" aria-label="Next page" rel="next"'):'<span class="next_page disabled" aria-label="Next page">Next</span>'
+ ].join(' ');
+ document.querySelector('#pagination').innerHTML=pagination;
+ document.querySelector('#pagination').hidden=!pagination;
+ if(screenshot){document.querySelector('#pagination-top').innerHTML=pagination;document.querySelector('#pagination-top').hidden=!pagination;}
+
 }
 app.addEventListener('submit',ev=>{ev.preventDefault();q=new FormData(ev.target).get('q').trim();page=1;searched=true;save();if(gateway||featured)location.reload();else render();});
 for(const key of ['discipline','region','status'])document.getElementById(key)?.addEventListener('change',ev=>{if(key==='discipline')discipline=ev.target.value;if(key==='region')region=ev.target.value;if(key==='status')status=ev.target.value;page=1;save();render();});
 document.querySelector('#reset')?.addEventListener('click',()=>{q='';discipline='';region='';status='current';page=1;searched=true;save();location.reload();});
-app.addEventListener('click',ev=>{const b=ev.target.closest('[data-page]');if(b){page=Number(b.dataset.page);save();render();document.querySelector('#result-count').scrollIntoView({block:'center'});}const a=ev.target.closest('[data-profile]');if(a){const p=data.find(p=>p.id===a.dataset.profile);document.querySelector('#profile-name').textContent=p.name;document.querySelector('#profile-detail').innerHTML=`<p>${e(p.role)} · ${e(groups[p.group])}</p><p>${e(p.discipline)} · ${e(p.region)}</p><p>Research interest: ${e(p.interest)}</p><p>${p.status==='past'?'Past affiliate':'Current affiliate'}</p><p>Fictional profile for usability testing.</p>`;document.querySelector('dialog').showModal();}});
+app.addEventListener('click',ev=>{const b=ev.target.closest('[data-page]');if(b){if(ev.ctrlKey||ev.metaKey||ev.shiftKey||ev.altKey)return;ev.preventDefault();page=Number(b.dataset.page);save();render();document.querySelector('#result-count').scrollIntoView({block:'center'});}const a=ev.target.closest('[data-profile]');if(a){const p=data.find(p=>p.id===a.dataset.profile);document.querySelector('#profile-name').textContent=p.name;document.querySelector('#profile-detail').innerHTML=`<p>${e(p.role)} · ${e(groups[p.group])}</p><p>${e(p.discipline)} · ${e(p.region)}</p><p>Research interest: ${e(p.interest)}</p><p>${p.status==='past'?'Past affiliate':'Current affiliate'}</p><p>Fictional profile for usability testing.</p>`;document.querySelector('dialog').showModal();}});
 document.querySelector('#close-profile').onclick=()=>document.querySelector('dialog').close();
 render();
