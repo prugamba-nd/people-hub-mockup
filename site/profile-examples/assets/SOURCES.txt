@@ -1,0 +1,7 @@
+Public profile examples verified 23 October 2026.
+Scott Appleby: https://keough.nd.edu/about/faculty-staff-directory/scott-appleby/
+Image: https://keough.nd.edu/assets/675299/600x600/022_scott_appleby_headshot_2026.jpg
+Daniel Philpott: https://politicalscience.nd.edu/people/daniel-philpott/
+Image: https://politicalscience.nd.edu/assets/603529/600x600/philpott_photo_head_shot.jpg
+The institute title is a placeholder. Maren Okafor and her full biography are fictional.
+Native component references: https://webtheme.nd.edu/?path=/docs/components-cards-card-people--docs and https://webtheme.nd.edu/?path=/docs/components-pagination--docs

@@ -527,3 +527,5 @@ print(json.dumps({'ndt24_pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIE
 # Isolated usability alternatives; production mockup variants stay unchanged.
 from comparison import build as build_comparisons
 build_comparisons(globals())
+from profile_examples import build as build_profile_examples
+build_profile_examples(globals())
