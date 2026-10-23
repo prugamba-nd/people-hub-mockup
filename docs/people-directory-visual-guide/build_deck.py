@@ -98,7 +98,7 @@ def new(title,kicker,notes,source):
  text(.5,.55,15,.6,title,30,True)
  text(.5,8.72,10,.18,'DRAFT FOR FEEDBACK  ·  '+kicker,9,color=GRAY)
  text(12.4,8.72,2.6,.18,'Open the live example',9,color=GRAY,url=source)
- text(15.25,8.72,.5,.18,f'{number} / 7',9,color=GRAY)
+ text(15.25,8.72,.5,.18,f'{number} / 8',9,color=GRAY)
  slide.notes_slide.notes_text_frame.text=notes+'\n\nSource / example: '+source+'\nIllustrative institute mockups. The underlying website components use NDT4. Screenshots may show fictional people; public profile examples cite their sources on the linked pages.'
 
 new('People opens the directory','Start here','Use People in top-level navigation. The landing title is People Directory. No category is selected on the hub. The five categories are Leadership, Faculty, Staff, Scholars & Fellows, and Students. Four columns on desktop adapt to smaller screens. Leadership comes first; everyone else follows alphabetically by surname. Show each person once. No inset hero or introductory photo. Screenshot uses the 40-profile NDT4 example.',base+'screens/40/')
@@ -108,6 +108,16 @@ callout(1,1.7,'People in the\nmain navigation')
 callout(2,3.1,'One clear title','People Directory')
 callout(3,4.4,'Five sidebar groups','None selected on the hub.')
 callout(4,5.9,'Four columns','Leadership first.\nThen surname A–Z.')
+
+new('One standard across every institute theme','Theme-agnostic rules','The same People Directory structure applies to NDT4, NDT3, and Notre Dame Theme 2.4. Keep each theme’s native visual styling; the standard defines navigation, page titles, sidebar groups, profile ordering, four desktop columns, profile destinations, and directory-size thresholds. Theme styles do not need to look identical. These screenshots are the current published theme examples. NDT3: '+base+'ndt3/ ; Theme 2.4: '+base+'ndt24/',base)
+for i,(name,label,path) in enumerate([('theme-ndt4','NDT4',''),('theme-ndt3','NDT3','ndt3/'),('theme-ndt24','Theme 2.4','ndt24/')]):
+ x=.5+i*5.17
+ text(x,1.45,4.7,.45,label,24,True)
+ image(name,x,2.05,4.65,url=base+path)
+text(.65,6.0,14.7,.3,'KEEP EACH THEME’S NATIVE STYLING. USE THE SAME DIRECTORY RULES.',12,True,color=GRAY)
+rect(.5,6.65,14.95,1.25,fill=NAVY)
+text(.85,6.85,14.1,.35,'People → People Directory',22,True,WHITE)
+text(.85,7.4,14.1,.3,'Five sidebar groups  ·  Four desktop columns  ·  Same profile destinations',17,False,WHITE)
 
 new('The number of profiles determines the controls','Directory + category listings','Use these thresholds for the main directory, categories, and subcategories. Up to 24: all entries on one page, no pagination. 25–40: 24 per page, native pagination below the grid. More than 40: same pagination plus scoped search and relevant filters. 40 means two pages (24 and 16); 60 means three pages (24, 24, and 12). Screenshots intentionally show top-of-page and bottom-of-list excerpts rather than shrinking a whole long page. The 24-record illustration is rendered using the native NDT4 40-profile example reduced locally to 24 records for this deck. No live page was changed.',base+'screens/')
 for i,(n,summary) in enumerate([(24,'All on one page'),(40,'24 per page'),(60,'24 per page + search / filters')]):
@@ -159,4 +169,4 @@ rect(.55,7.95,14.85,.52,fill=NAVY)
 text(.85,8.06,14,.28,'No profile links.  No biography to keep current.  Names and affiliations still need to be accurate.',16,True,WHITE)
 
 pdf.save();pres.save(ROOT/'People-Directory-Visual-Guide.pptx')
-print('Created 7-slide editable PowerPoint and matching PDF.')
+print('Created 8-slide editable PowerPoint and matching PDF.')
