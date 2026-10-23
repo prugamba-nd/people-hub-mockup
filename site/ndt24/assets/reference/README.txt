@@ -1,0 +1,1 @@
+NDT 2.4 and Ansari site overrides copied from the user-provided saved Ansari People page, 2026-10-23. Relative CSS dependencies are preserved; css.bin renamed fonts.css for correct MIME type. No analytics or tracking scripts included. The separate ndt24-nav.css only substitutes the Institute Title text for the Ansari logo.

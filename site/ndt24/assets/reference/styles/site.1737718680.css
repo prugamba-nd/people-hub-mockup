@@ -1,0 +1,60 @@
+@import url("../images/fonts.css");
+/* University Template over-ride
+   Launched: 2018-10-08
+   Author:Aaron Greene
+   
+   Colors
+   --
+   Warm Grey: #c5bdb8
+   Dark Warm Grey: #80736a
+   
+   ----------------------------------------------------*/
+/* Global Styles go outside the @media screen */@media only screen{
+  
+  /* General */html{background:none}body{color:#333;line-height:1.6em}h1{color:#80736a;font-family:EB Garamond,Garamond,Georgia,serif}h3{font-style:normal}h2,h3,h4,h5,h6{font-weight:400;line-height:1.25em}a,h1 a:visited,h2 a:visited,h3 a:visited,h4 a:visited,h5 a:visited,h6 a:visited{color:#1c7029}.site-content a{font-weight:700}.site-content .breadcrumbs a,.site-content .meta-item a,.site-content h1 a,.site-content h2 a,.site-content h3 a{font-weight:400}.hidden-text{font-size:0;height:0;visibility:hidden;width:0}.embed-inner{padding:0;position:relative}.embed-inner embed,.embed-inner iframe,.embed-inner object{height:100%;left:0;position:absolute;top:0;width:100%}.dept{display:none}.wrapper{overflow:hidden}.site-content-inner{padding:1em}.image-default img,.image-left img,.image-right img{border:2px solid #c5bdb8;box-shadow:none}.btn-nav-mobile{display:block;top:1.75rem}.btn,.excerpt-continuation,.more{background:none;border:1px solid #c5bdb8;border-radius:0;box-shadow:none;color:#0c2340;font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-weight:400;text-align:center}.btn:visited,.excerpt-continuation:visited,.more:visited{color:#0c2340}.btn:focus,.btn:hover,.excerpt-continuation:focus,.excerpt-continuation:hover,.more:focus,.more:hover{background:#5aabbc;border-color:#5aabbc;box-shadow:none;color:#fff;top:0}.btn:active,.excerpt-continuation:active,.more:active{background-color:#3d8493;border-color:#3d8493}.btn-gold{border-color:#ae9142}.btn-gold:focus,.btn-gold:hover{background-color:#ae9142;border-color:#ae9142}.btn-gold:active{background-color:#967a2d;border-color:#967a2d}.btn-green{border-color:#2c903c}.btn-green:focus,.btn-green:hover{background-color:#2c903c;border-color:#2c903c}.btn-green:active{background-color:#1c7029;border-color:#1c7029}.btn-rsvp{border-color:#51c2c6;border-width:2px;font-family:GPC,Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-size:1.5rem}.btn-rsvp:hover{background-color:#51c2c6;border-color:#35a0a4}.btn-inline{border:none;margin:0}#footer .btn-inline{padding-left:.75em;padding-right:.75em}.section-title a{color:#0c2340!important}
+  
+  /* Head */.brandbar.theme-bb-blue{background:#0c2340}.site-title a{background:url(../images/ansari-logo.svg) 0 no-repeat;background-size:contain;height:50px;margin:.5em 0;overflow:hidden;padding:0;text-indent:-9999px;width:300px}.search-form{border-radius:0;box-shadow:none}.search-button{background:none;border:0;border-radius:0}.search-button:hover{background:none;border:none}.breadcrumbs a,.breadcrumbs a:visited{color:#0c2340}.page-title{border-bottom:0}
+  
+  /* Navigation */.nav-top{background:none;border:none;box-shadow:none;display:none}.nav-top li a{color:#0c2340;padding:.5rem;text-shadow:none}.nav-site ul>.active>a{border-color:#ae9142}
+  
+  /* Hero */.site-hero{background:#f3f4f4 url(../images/pattern-gray.png) 50%/auto 100px repeat;min-height:8em}.home .site-hero{background-color:#c5bdb8;display:flex;flex-flow:row wrap}.home .site-hero .site-hero-image{background-position:50%;background-size:cover;border:2px solid #fff;height:24vw}.home .site-hero .image-1,.home .site-hero .image-10,.home .site-hero .image-11,.home .site-hero .image-2,.home .site-hero .image-3,.home .site-hero .image-9{width:33.33%}.home .site-hero .image-6,.home .site-hero .image-8{width:25%}.home .site-hero .image-4,.home .site-hero .image-5,.home .site-hero .image-7{width:50%}.home .site-hero .image-1{background-image:url(../images/ansari-thai-lg.jpg)}.home .site-hero .image-2{background-image:url(../images/ansari-baptism-lg.jpg)}.home .site-hero .image-3{background-image:url(../images/ansari-eucharist-lg.jpg)}.home .site-hero .image-4{background-image:url(../images/ansari-muslim-woman-lg.jpg)}.home .site-hero .image-5{background-image:url(../images/ansari-muslim-lg.jpg)}.home .site-hero .image-6{background-image:url(../images/ansari-jewish-lg.jpg)}.home .site-hero .image-7{background-image:url(../images/ansari-bhuddism-lg.jpg)}.home .site-hero .image-8{background-image:url(../images/ansari-sikh-lg.jpg)}.home .site-hero .image-9{background-image:url(../images/ansari-guadalupe-lg.jpg)}.home .site-hero .image-10{background-image:url(../images/ansari-hindu-lg.jpg)}.home .site-hero .image-11{background-image:url(../images/ansari-shinto-lg.jpg)}
+    
+  /* Home */.home-primary{padding:1.5em 0;text-align:center}.home-primary p{color:#ae9142;font-family:EB Garamond,Garamond,Georgia,serif;font-size:2em;line-height:1.5em;margin-bottom:1rem}
+  
+  /* Features */.home-features{padding:2em 0;position:relative}.home-features:after{background:#f2f4f4 url(../images/pattern-gray.png) 50%/auto 100px repeat;bottom:0;content:"";display:block;left:-100vw;position:absolute;right:-100vw;top:0}.feature-list{position:relative;z-index:2}.feature{background:#fff;margin:0 0 2em;padding:.75em .75em 3em;position:relative}.feature-content{padding:.5em}.feature-content h2{font-size:1.6em;font-weight:300;margin-bottom:.5em;margin-top:.5em}.feature-content h2 a{color:#1c7029}.feature-copy{margin:1.25rem 0}.feature-content .btn{bottom:.75em;display:block;left:.75em;position:absolute;right:.75em;top:auto}
+  
+  /* About */.home-about{padding:2em 0 0;position:relative}.about-title{margin-top:0}
+  
+  /* News & Events */.entry-title{font-family:GPC,Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;font-weight:300}.entry-title a{color:#1c7029}.events-all,.news-all{float:right}.events-all:after,.news-all:after{background:url(../images/chevron-gold.svg) 50% 50%/contain no-repeat;content:"";display:inline-block;height:1em;margin-left:.15em;transform:translateX(0);transition:all var(--anim-duration-fast) var(--anim-ease);vertical-align:middle;width:1em}.posted-in a{background:#eee;background:#ece9e8;border-radius:.25em;display:inline-block;margin-right:.5rem;padding:.25em 1em;text-decoration:none}
+  
+  /* Conference */.conference-content{padding-left:1rem}.conference-content h3,.conference-content h4,.conference-time{left:-1rem;position:relative}.conference-time{border-bottom:1px solid #ae9142;margin-top:1rem}
+  
+  /* People */.person-item{margin:0 0 2em}.person-item-name{color:#1c7029;font-weight:500;margin:.75rem 0 .5rem}.person-item .read-more{color:#0c2340}.listed-person .person-item-name{font-size:2.5rem}
+    
+  /* Footer */.site-footer .address,.site-footer .email,.site-link{clear:both}.social-list{list-style:none;margin:1rem 0;padding:0}.social-list li{display:inline-block;height:2em;margin-left:.25em;margin-right:.25em;position:relative;text-indent:-999em;width:2em}.social-list svg{height:100%;left:0;position:absolute;top:0;width:100%}.social-list a:visited{color:#1c7029}.social-list a:hover{color:#0c2340};}
+/* 580px
+----------------------------------------------------*/@media only screen and (min-width:36.250em){.site-title a{height:70px;width:400px}.image-right{margin:0 0 1.5em 1.5em}}
+/* 700px
+----------------------------------------------------*/@media only screen and (min-width:43.75em){
+  /* General */h1{font-size:2.75rem}.header-util{display:none;float:none;margin:1.125rem 0 0;max-width:13rem;top:0}.align-right{text-align:right}.site-content-inner{padding:1em}
+
+  /* Hero */.site-hero{min-height:12em}.home .site-hero .site-hero-image{border:2px solid #fff;height:16vw}.home .site-hero .image-1,.home .site-hero .image-2{width:16.66%}.home .site-hero .image-10,.home .site-hero .image-11,.home .site-hero .image-3,.home .site-hero .image-4,.home .site-hero .image-5,.home .site-hero .image-9{width:33.33%}.home .site-hero .image-6,.home .site-hero .image-7,.home .site-hero .image-8{width:22.22%}
+  
+  /* Navigation */.nav-top-true .alpha,.nav-top-true.home .alpha{background:#fff;margin-top:-5em;position:relative}.nav-top-true .nav-top{display:none;text-align:right}.nav-top li a:hover,.nav-top li.active a{background-color:transparent;border:none;box-shadow:none;color:#ae9142}
+  
+  /* Features */.home-features{padding:3em 0}.feature-list{display:flex;flex-flow:row wrap;margin:0 -1em}.feature{margin:0 1em;width:calc(33% - 2em)}
+    
+  /* Home */.home-primary p{font-size:2.5em}.home-about{align-items:center;display:flex;padding:3em 0 0}.about-image{margin-right:2em;width:calc(50% - 2em)}.about-content{width:50%}
+    
+  /* News & Events */.latest-content{display:flex;flex-flow:row wrap}.news-column{margin-right:3em;width:calc(60% - 3em)}.events-column{margin-right:3em;width:calc(40% - 3em)}.news-column.full{margin-right:0;width:100%}
+  
+  /* Conference */.conference-content{padding-left:7rem;position:relative}.conference-content h3,.conference-content h4{left:-7rem;position:relative}.conference-content h4{margin-bottom:1.5rem}.conference-time{left:-7rem;margin-top:0;position:relative}}
+/* 960px
+----------------------------------------------------*/@media only screen and (min-width:60em){.dept{display:block}.nav-top-true .nav-top{display:none}}
+/* 1024px
+----------------------------------------------------*/@media only screen and (min-width:64em){.site-hero{min-height:15em}.home .site-hero .site-hero-image{height:17vw}.home-features{padding:4em 0}.home-about{padding:4em 0 0}.home-primary p{font-size:3.25em}.header-util{display:inline-block}.nav-top-true .nav-top{display:block}.btn-nav-mobile{display:none}}
+/* 1200px
+----------------------------------------------------*/@media only screen and (min-width:75em){.nav-top li a{padding:.75rem}}
+/* Hi-res
+----------------------------------------------------*/@media
+  only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min-device-pixel-ratio:1.5),only screen and (min-resolution:1.5dppx),only screen and (min-resolution:144dpi){.site-hero{background:#f3f4f4 url(../images/pattern-gray-2x.png) 50%/auto 100px repeat}.home-features:after{background:#f2f4f4 url(../images/pattern-gray-2x.png) 50%/auto 100px repeat}}

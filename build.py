@@ -337,115 +337,18 @@ def write_ndt24(relative, content):
     output.write_text(content, encoding='utf-8')
 
 
-NDT24_NAV_CSS = '''.site-header {
-  background-color: #ffffff;
-  color: #0c2340;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.site-header a {
-  color: #0c2340;
-  text-decoration: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 0.75rem;
-}
-
-.site-header a:hover {
-  color: #ae9142;
-}
-
-.site-header a.active,
-.site-header a[aria-current="page"] {
-  color: #ae9142;
-  font-weight: 600;
-}
-
-/* Reset NDT 2.4's dark top-navigation bar inside this white header. */
-.site-header .nav-top {
-  position: static;
-  z-index: auto;
-  display: block;
-  width: auto;
-  height: auto;
-  padding: 0;
-  background: transparent;
-  color: #0c2340;
-  font: inherit;
-  line-height: normal;
-  text-align: right;
-}
-
-.site-header .nav-top ul {
+# Ansari's saved theme and site overrides are vendored in assets/reference.
+# Only replace the institute-specific image logo with our placeholder title.
+NDT24_NAV_CSS = '''.site-title a {
+  background: none;
+  text-indent: 0;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.site-header .nav-top li {
-  display: block;
-  margin: 0;
-  font-family: inherit;
-  font-size: 1rem;
-}
-
-.site-header .nav-top li a {
-  display: block;
-  padding: 0.5rem 0.75rem;
   color: #0c2340;
-  background: transparent;
-  box-shadow: none;
-  text-shadow: none;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-.site-header .nav-top li.active a,
-.site-header .nav-top li a.current,
-.site-header .nav-top li a[aria-current="page"] {
-  color: #ae9142;
-  background: transparent;
-  box-shadow: none;
-  font-weight: 600;
-}
-
-.site-header .nav-top li a:hover,
-.site-header .nav-top li a:focus {
-  color: #ae9142;
-  background: transparent;
-  box-shadow: none;
-  text-decoration: none;
-}
-
-@media (max-width: 768px) {
-  .site-header {
-    height: auto;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .site-header .nav-top {
-    width: 100%;
-    text-align: center;
-  }
-
-  .site-header .nav-top ul {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  white-space: normal;
+  max-width: calc(100vw - 5rem);
 }
 '''
 
@@ -465,7 +368,7 @@ def ndt24_sidebar(prefix, current='', child='', profile=False):
         nested = f'<ul class="no-bullets">{"".join(children)}</ul>' if children else ''
         active_class = ' class="active"' if active else ''
         items.append(f'<li{active_class}><a href="{prefix}{slug}/index.html"{current_attr}>{escape(label)}</a>{nested}</li>')
-    return f'<nav id="nav" class="nav-section nav-site" aria-label="People categories"><ul class="no-bullets">{"".join(items)}</ul></nav>'
+    return f'<nav class="nav-section nav-site" aria-label="People categories"><ul class="no-bullets">{"".join(items)}</ul></nav><nav id="nav" class="nav-full nav-site" aria-label="Mobile navigation"><ul>{"".join(items)}</ul></nav>'
 
 
 def ndt24_grid(people, prefix):
@@ -497,6 +400,7 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <li id="primary_98005" class="li-has-children"><a href="https://ansari.nd.edu/conference/">Programs</a></li>
 <li id="primary_98654" class="last li-has-children"><a href="https://ansari.nd.edu/news-events/">News &amp; Events</a></li>
 </ul></div></div></div></nav>'''
+    primary = primary.replace('\n', '')
     page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
     hero_image = f'<p class="image-default"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></p>' if hero else ''
     return f'''<!DOCTYPE html>
@@ -504,16 +408,57 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A static NDT 2.4 People directory mockup for Institute Title.">
 <title>{escape(title)} | Institute Title | University of Notre Dame</title>
-<link rel="stylesheet" href="https://conductor.nd.edu/stylesheets/themes/ndt/2.4/ndt.css">
+<link rel="stylesheet" href="{prefix}assets/reference/styles/ndt.css">
+<link rel="stylesheet" href="{prefix}assets/reference/styles/site.1737718680.css">
 <link rel="stylesheet" href="{prefix}assets/ndt24-nav.css">
 </head><body class="nav-top-true">
 <nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:none"><symbol id="icon-home" viewBox="0 0 950.8578853607178 1024">
+	<path class="path1" d="M804.571 566.857v274.286q0 14.857-10.857 25.714t-25.714 10.857h-219.429v-219.429h-146.286v219.429h-219.429q-14.857 0-25.714-10.857t-10.857-25.714v-274.286q0-0.571 0.286-1.714t0.286-1.714l328.571-270.857 328.571 270.857q0.571 1.143 0.571 3.429zM932 527.429l-35.429 42.286q-4.571 5.143-12 6.286h-1.714q-7.429 0-12-4l-395.429-329.714-395.429 329.714q-6.857 4.571-13.714 4-7.429-1.143-12-6.286l-35.429-42.286q-4.571-5.714-4-13.429t6.286-12.286l410.857-342.286q18.286-14.857 43.429-14.857t43.429 14.857l139.429 116.571v-111.429q0-8 5.143-13.143t13.143-5.143h109.714q8 0 13.143 5.143t5.143 13.143v233.143l125.143 104q5.714 4.571 6.286 12.286t-4 13.429z" />
+</symbol><symbol id="icon-search" viewBox="0 0 950.8563512165565 1024">
+	<path class="path1" d="M658.286 475.429q0-105.714-75.143-180.857t-180.857-75.143-180.857 75.143-75.143 180.857 75.143 180.857 180.857 75.143 180.857-75.143 75.143-180.857zM950.857 950.857q0 29.714-21.714 51.429t-51.429 21.714q-30.857 0-51.429-21.714l-196-195.429q-102.286 70.857-228 70.857-81.714 0-156.286-31.714t-128.571-85.714-85.714-128.571-31.714-156.286 31.714-156.286 85.714-128.571 128.571-85.714 156.286-31.714 156.286 31.714 128.571 85.714 85.714 128.571 31.714 156.286q0 125.714-70.857 228l196 196q21.143 21.143 21.143 51.429z" />
+</symbol></svg>
 <div class="wrapper" id="wrapper">
-<nav class="brandbar theme-bb-blue" aria-label="Department navigation"><div class="row row-container"><ul class="column"><li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li><li class="dept dept-ksga"><a href="https://keough.nd.edu/">Keough School of Global Affairs</a></li></ul></div></nav>
-<header id="header" class="site-header" role="banner">
-<p class="site-title"><a href="{prefix}index.html" accesskey="H">Institute Title</a></p>
-{primary}
-</header>
+<header id="header" role="banner" class="site-header">
+    <nav class="brandbar theme-bb-blue" aria-label="Department navigation">
+      <div class="row row-container">
+        <ul class="column">
+          <li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li>
+          <li class="dept dept-ksga"><a href="https://keough.nd.edu/">Keough School of Global Affairs</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="titlebar">
+      <div class="row row-container">
+
+        <div class="column large-5">
+            <p class="site-title"><a href="{prefix}index.html" accesskey="H">Institute Title</a></p>
+          <a href="#nav" class="btn-nav-mobile" aria-label="Menu">
+            <svg version="1.1" class="icon-menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" xml:space="preserve">
+              <line class="ni ni1" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="0.98" y1="2" x2="18.94" y2="2" />
+              <line class="ni ni2" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="0.98" y1="8.69" x2="18.94" y2="8.69" />
+              <g class="ni ni3">
+                <path d="M2.18,19.91l-0.95-2.58l-0.28-0.81l0.01,1.42v1.97H0.04v-5.17h1.08l1.07,2.81l0.35,0.97l0.35-0.97 l1.07-2.81h1.08v5.17H4.12v-1.97l0.01-1.42l-0.28,0.81l-0.95,2.58H2.18z" />
+                <path d="M9.7,14.74v0.86H6.96v1.23h2.42v0.86H6.96v1.35h2.86v0.86H6.04v-5.17H9.7z" />
+                <path d="M12.15,17.25l-0.51-0.79l0.01,1.24v2.22h-0.93v-5.17h0.85l1.78,2.66l0.51,0.79l-0.01-1.24v-2.22h0.93v5.17 h-0.85L12.15,17.25z" />
+                <path d="M15.74,18.02v-3.28h0.93v3.28c0,0.63,0.2,1.12,1.18,1.12c0.98,0,1.18-0.49,1.18-1.12v-3.28h0.93v3.28 c0,1.13-0.5,1.98-2.11,1.98C16.23,20,15.74,19.15,15.74,18.02z" />
+              </g>
+            </svg>
+            <span class="visibility-hidden">Menu</span>
+          </a>
+        </div>
+
+        <div class="column align-right">
+          <div class="header-util">
+            <form method="get" action="https://ansari.nd.edu/search/" role="search" id="search" class="search-form" aria-label="Site search"><input type="hidden" name="as_sitesearch" value="ansari.nd.edu"><input type="hidden" name="entqr" value="3"><label for="search-input">Search</label><input type="search" name="q" id="search-input" class="search-input" placeholder="Search"><button type="submit" class="search-button"><svg data-icon="search" class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search" /></svg> <span>Search</span></button></form>
+          </div><!-- .header-util -->
+          {primary}
+        </div>
+
+      </div>
+    </div><!-- .titlebar -->
+  </header>
+<div class="site-hero" aria-hidden="true"></div>
 <div id="content" class="site-content cf"><div class="row row-container">
 <main class="alpha small-12 medium-8 medium-push-4 large-9 large-push-3 xlarge-10 xlarge-push-2 medium-order-2 columns" role="main">
 <div class="site-content-inner">
