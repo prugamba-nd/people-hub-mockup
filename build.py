@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parent
 SITE = ROOT / 'site'
 SITE_NAME = 'Institute Title'
 CATEGORIES = [
-    ('governance', 'Governance', 'The leadership and advisory community guiding our work.'),
+    ('governance', 'Leadership', 'The leadership and advisory community guiding our work.'),
     ('faculty', 'Faculty', 'Scholars connecting disciplines, research, and teaching.'),
     ('staff', 'Staff', 'The team supporting our people, programs, and partnerships.'),
     ('scholars-fellows', 'Scholars & Fellows', 'Postdoctoral researchers, visiting scholars, and fellows in our community.'),
