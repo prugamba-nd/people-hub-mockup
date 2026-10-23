@@ -13,3 +13,5 @@
 button.profile-link {background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}
 
 .directory-controls[hidden] {display:none;}
+
+.pagination:empty {display:none;}
