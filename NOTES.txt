@@ -6,8 +6,8 @@ and thirteen profile links (27 pages each).
 No dependencies or backend are needed. Groups without sample people display
 "Profiles coming soon." Some sample people belong to more than one group.
 
-The markup follows the existing NDT4 header, page, section navigation, and
-People Card components. The official NDT4 stylesheet loads from:
+The NDT4 markup follows the existing NDT4 header, page, section navigation,
+and People Card components. The official NDT4 stylesheet loads from:
 https://conductor.nd.edu/stylesheets/themes/ndt/4.0/ndt.css
 
 The official stylesheet is the only stylesheet loaded. No custom CSS,
@@ -15,9 +15,20 @@ inline styles, or design-token overrides are included. Spacing and layout use
 documented NDT4 components and utility classes. The theme requires a network
 connection; there is no substitute offline theme.
 
-The NDT3 version uses the official NDT3 stylesheet and runtime, and follows the
-page and sidebar structure in the ND Web Team's NDT3 HTML template repository:
+The NDT3 version uses the official NDT3 stylesheet and runtime, and follows
+the page-sidebar and People Card patterns from the Keough School's NDT3 pages.
+The directory and leadership references are:
+https://keough.nd.edu/about/faculty-staff-directory/
+https://keough.nd.edu/about/leadership/
+The sidebar uses NDT3's native nav-level classes and appears in the theme's
+page-sidebar region. The HTML template reference is:
 https://github.com/ndwebgroup/ndt3-html
+
+The NDT 2.4 version is under /ndt24/. It uses the archive's official NDT 2.4
+stylesheet, JavaScript, brandbar/titlebar, row-and-column layout, and nav-site
+sidebar structure. Reference documentation:
+https://webtheme-archive.netlify.app/v2.4/assets/
+https://webtheme-archive.netlify.app/v2.4/content
 
 People and roles are fictional. All profile images use a neutral placeholder.
 The wide photo is reused from the existing saved People mockup in this

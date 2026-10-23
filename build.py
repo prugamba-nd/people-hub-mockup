@@ -298,7 +298,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 <div class="nav-header">{primary}</div><div class="nav-mobile-util"><ul class="no-bullets"><li><a href="{prefix}index.html">People</a></li><li><a class="nav-menu nav-skip" href="#nav">Menu</a></li></ul></div></header>
 <div id="content" class="site-content">
 <div class="page-header"></div>
-<main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li><li><a href="{prefix}index.html">People</a> &rsaquo;</li>{crumbs}</ol>
+<main class="page-main" role="main"><ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo;</li>{f'<li><a href="{prefix}index.html">People</a> &rsaquo;</li>' if category or profile or subcategory else ''}{crumbs}</ol>
 <h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}
 {body}</main>
 <aside class="page-sidebar">{navigation}</aside>
@@ -323,3 +323,95 @@ for slug, name, title, category in PEOPLE:
     write_ndt3(f'profiles/{slug}.html', ndt3_shell(name, body, '../', category, profile=True))
 
 print(json.dumps({'ndt3_pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIES.values())) + len(PEOPLE)}))
+
+
+NDT24_SITE = SITE / 'ndt24'
+
+
+def write_ndt24(relative, content):
+    output = NDT24_SITE / relative
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(content, encoding='utf-8')
+
+
+def ndt24_sidebar(prefix, current='', child='', profile=False):
+    items = []
+    for slug, label, _ in CATEGORIES:
+        active = current == slug
+        selected = active and not child and not profile
+        current_attr = ' class="current-last" aria-current="page"' if selected else ''
+        children = []
+        if active:
+            for subslug, sublabel, _ in SUBCATEGORIES[slug]:
+                selected_child = child == subslug
+                child_attr = ' class="current-last" aria-current="page"' if selected_child else ''
+                children.append(f'<li><a href="{prefix}{slug}/{subslug}/index.html"{child_attr}>{escape(sublabel)}</a></li>')
+        nested = f'<ul class="no-bullets">{"".join(children)}</ul>' if children else ''
+        active_class = ' class="active"' if active else ''
+        items.append(f'<li{active_class}><a href="{prefix}{slug}/index.html"{current_attr}>{escape(label)}</a>{nested}</li>')
+    return f'<nav id="nav" class="nav-section nav-site" aria-label="People categories"><ul class="no-bullets">{"".join(items)}</ul></nav>'
+
+
+def ndt24_grid(people, prefix):
+    cards = []
+    for slug, name, title, _category in people:
+        cards.append(f'''<li class="column small-12 medium-6 large-4">
+<article><p><img src="{prefix}../assets/avatar-placeholder.svg" width="600" height="600" alt="" loading="lazy"></p>
+<h2 class="entry-title"><a href="{prefix}profiles/{slug}.html">{escape(name)}</a></h2><p>{escape(title)}</p></article></li>''')
+    return '<ul class="row no-bullets">' + ''.join(cards) + '</ul>'
+
+
+def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory='', lede='', hero=False):
+    if subcategory:
+        crumbs = f'<li><a href="{prefix}{category}/index.html">{escape(LABELS[category])}</a> &rsaquo; </li><li>{escape(title)}</li>'
+    elif category and profile:
+        crumbs = f'<li><a href="{prefix}{category}/index.html">{escape(LABELS[category])}</a> &rsaquo; </li><li>{escape(title)}</li>'
+    elif category:
+        crumbs = f'<li>{escape(title)}</li>'
+    else:
+        crumbs = '<li>Directory</li>'
+    navigation = ndt24_sidebar(prefix, category, subcategory, profile)
+    primary = f'''<nav class="nav-top" id="nav-top" aria-label="Primary navigation"><div class="row row-container"><ul class="column no-bullets">
+<li><a href="https://keough.nd.edu/about/">About</a></li><li class="active"><a href="{prefix}index.html">Directory</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
+</ul></div></nav>'''
+    page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
+    hero_image = f'<p class="image-default"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></p>' if hero else ''
+    return f'''<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A static NDT 2.4 People directory mockup for Institute Title.">
+<title>{escape(title)} | Institute Title | University of Notre Dame</title>
+<link rel="stylesheet" href="https://conductor.nd.edu/stylesheets/themes/ndt/2.4/ndt.css">
+</head><body class="nav-top-true">
+<nav class="skip-links" aria-label="Skip links"><ul><li><a href="#content">Skip To Content</a></li><li><a href="#nav-top">Skip To Navigation</a></li></ul></nav>
+<div class="wrapper" id="wrapper">
+<header id="header" class="site-header" role="banner">
+<nav class="brandbar theme-bb-blue" aria-label="Department navigation"><div class="row row-container"><ul class="column no-bullets"><li class="dept-nd"><a href="https://www.nd.edu/">University of Notre Dame</a></li><li class="dept"><a href="{prefix}index.html">Institute Title</a></li></ul></div></nav>
+<div class="titlebar theme-tb-gold"><div class="row row-container"><div class="column"><p class="site-title"><a href="{prefix}index.html">Institute Title</a></p><a href="#nav" class="btn-nav-mobile">Menu</a></div></div></div>
+{primary}</header>
+<div id="content" class="site-content cf"><div class="row row-container">
+<main class="alpha small-12 medium-8 medium-push-4 large-9 large-push-3 xlarge-10 xlarge-push-2 medium-order-2 columns" role="main">
+<ol class="breadcrumbs"><li><a href="https://keough.nd.edu/">Home</a> &rsaquo; </li>{f'<li><a href="{prefix}index.html">Directory</a> &rsaquo; </li>' if category or profile or subcategory else ''}{crumbs}</ol>
+<h1 class="page-title">{escape(title)}</h1>{page_lede}{hero_image}{body}</main>
+<aside class="beta small-12 medium-4 medium-pull-8 large-3 large-pull-9 xlarge-2 xlarge-pull-10 medium-order-1 columns">{navigation}</aside>
+</div></div>
+<footer id="footer" class="site-footer vcard" role="contentinfo"><div class="row row-container"><div class="column"><div class="footer-inner"><p class="copyright org"><a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2026 <a href="https://www.nd.edu/" class="org">University of Notre Dame</a></p><p class="contact-info adr"><a href="{prefix}index.html" class="site-link url fn">Institute Title</a><span class="address"><span class="locality">Notre Dame</span>, <span class="region">IN</span> <span class="postal-code">46556</span> <span class="country-name">USA</span></span></p><a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a></div></div></div></footer>
+</div><script src="https://conductor.nd.edu/javascripts/themes/ndt/2.4/ndt.js"></script></body></html>'''
+
+
+ndt24_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
+write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))
+for slug, label, description in CATEGORIES:
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    body = f'<p>{escape(description)}</p>{landing_heading}{ndt24_grid(category_people(slug), "../")}'
+    write_ndt24(f'{slug}/index.html', ndt24_shell(label, body, '../', slug))
+    for subslug, sublabel, members in SUBCATEGORIES[slug]:
+        people = [p for p in PEOPLE if p[0] in members]
+        listing = ndt24_grid(people, '../../') if people else '<p>Profiles coming soon.</p>'
+        body = f'<p>{escape(sublabel)} at {escape(SITE_NAME)}.</p>{listing}'
+        write_ndt24(f'{slug}/{subslug}/index.html', ndt24_shell(sublabel, body, '../../', slug, subcategory=subslug))
+for slug, name, title, category in PEOPLE:
+    body = f'<p><img src="../../assets/avatar-placeholder.svg" width="600" height="600" alt=""></p><p><strong>{escape(title)}</strong></p><p>Institute Title</p><p>Sample profile</p><h2>Biography</h2><p>This fictional profile illustrates the destination of a directory listing. A published profile would introduce the person’s work, expertise, and role in the community.</p><p><a class="btn" href="../{category}/index.html">Back to {escape(LABELS[category])}</a></p>'
+    write_ndt24(f'profiles/{slug}.html', ndt24_shell(name, body, '../', category, profile=True))
+
+print(json.dumps({'ndt24_pages': 1 + len(CATEGORIES) + sum(map(len, SUBCATEGORIES.values())) + len(PEOPLE)}))
