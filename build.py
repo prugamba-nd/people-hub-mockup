@@ -207,7 +207,7 @@ hub_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and student
 write('index.html', shell('People', hub_intro + grid(PEOPLE, ''), hero=True, lede=intro_lede))
 
 for slug, label, description in CATEGORIES:
-    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
     body = f'<p class="lede">{escape(description)}</p>{landing_heading}{grid(category_people(slug), "../")}'
     write(f'{slug}/index.html', shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
@@ -313,7 +313,7 @@ def ndt3_shell(title, body, prefix='', category='', profile=False, subcategory='
 ndt3_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
 write_ndt3('index.html', ndt3_shell('People', ndt3_intro + ndt3_grid(PEOPLE, ''), hero=True, lede=intro_lede))
 for slug, label, description in CATEGORIES:
-    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
     body = f'<p class="lede">{escape(description)}</p>{landing_heading}{ndt3_grid(category_people(slug), "../")}'
     write_ndt3(f'{slug}/index.html', ndt3_shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
@@ -510,7 +510,7 @@ write_ndt24('assets/ndt24-nav.css', NDT24_NAV_CSS)
 ndt24_intro = '<h2>Directory</h2><p>Meet the faculty, staff, scholars, and students who make up our institute community.</p>'
 write_ndt24('index.html', ndt24_shell('People', ndt24_intro + ndt24_grid(PEOPLE, ''), lede=intro_lede, hero=True))
 for slug, label, description in CATEGORIES:
-    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS else ''
+    landing_heading = f'<h2>{escape(LANDING_LABELS[slug])}</h2>' if slug in LANDING_LABELS and LANDING_LABELS[slug] != label else ''
     body = f'<p>{escape(description)}</p>{landing_heading}{ndt24_grid(category_people(slug), "../")}'
     write_ndt24(f'{slug}/index.html', ndt24_shell(label, body, '../', slug))
     for subslug, sublabel, members in SUBCATEGORIES[slug]:
