@@ -50,3 +50,22 @@ def build(ns):
     html=html.replace('</head>','<link rel="stylesheet" href="compare.css"></head>')
     (out/'index.html').write_text(html)
     print(json.dumps({'comparison_options':len(modes),'fictional_profiles':len(people)}))
+
+    # Screens for communicating the agreed 24 / 40 / >40 thresholds.
+    screens=ns['SITE']/'screens';screens.mkdir(exist_ok=True)
+    leader_pool=[p for p in people if p['status']=='current' and p['role']=='Leadership']
+    leaders=[leader_pool[0],leader_pool[len(leader_pool)//2]]
+    others=[p for p in people if p['status']=='current' and p['role']!='Leadership']
+    for count in [24,40,60]:
+        folder=screens/str(count);folder.mkdir(exist_ok=True)
+        records=leaders+[others[round(i*(len(others)-1)/(count-3))] for i in range(count-2)]
+        html=page('People Directory','<div id="directory-app"></div>','../../')
+        html=html.replace('href="../../index.html"','href="index.html"')
+        html=html.replace('<body vocab=','<body data-prototype="screenshot" vocab=')
+        html=html.replace('</head>','<link rel="stylesheet" href="../../compare/compare.css"></head>')
+        html=html.replace('</body>','<script>window.screenshotPeople='+json.dumps(records)+'</script><script src="../../compare/compare.js"></script></body>')
+        html=html.replace('<footer id="footer"','<p class="prototype-bar">Fictional profiles for illustration. <a href="../index.html">Other directory sizes</a></p><footer id="footer"')
+        (folder/'index.html').write_text(html)
+    body='<p>Screenshot-ready examples of the proposed People Directory standard. Each uses four desktop columns and fictional profiles, with leadership first.</p><ul><li><a href="24/">24 profiles: all on one page</a></li><li><a href="40/">40 profiles: two pages, 24 per page, no search or filters</a></li><li><a href="60/">60 profiles: three pages, 24 per page, with search and filters</a></li></ul><p>The 40- and 60-profile directories display their first 24 profiles initially. Use Next to see the remainder.</p><h2>Download full-page screenshots</h2><ul><li><a href="assets/directory-24.png">24-profile screen (PNG)</a></li><li><a href="assets/directory-40.png">40-profile screen (PNG)</a></li><li><a href="assets/directory-60.png">60-profile screen (PNG)</a></li></ul>'
+    (screens/'index.html').write_text(page('Directory size examples',body))
+    print(json.dumps({'screenshot_directories':[24,40,60]}))
