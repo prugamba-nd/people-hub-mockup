@@ -374,8 +374,15 @@ def ndt24_shell(title, body, prefix='', category='', profile=False, subcategory=
     else:
         crumbs = '<li>Directory</li>'
     navigation = ndt24_sidebar(prefix, category, subcategory, profile)
+    people_state = ' class="active li-has-children"'
+    people_current = '' if category or profile or subcategory else ' aria-current="page" class="current current-last"'
     primary = f'''<nav id="nav-top" class="nav-top" role="navigation" aria-label="Primary navigation"><div class="row"><div class="column"><div id="primary"><ul class="nav-level-1 depth_1">
-<li><a href="https://keough.nd.edu/about/">About</a></li><li class="active"><a href="{prefix}index.html">People</a></li><li><a href="https://keough.nd.edu/research/">Research</a></li><li><a href="https://keough.nd.edu/academics/">Academics</a></li><li><a href="https://keough.nd.edu/news-and-events/">News &amp; Events</a></li>
+<li id="primary_97992" class="first"><a href="https://ansari.nd.edu/" aria-label="Home"><svg class="icon" aria-label="Home"><use xlink:href="#icon-home"></use></svg></a></li>
+<li id="primary_97994" class="li-has-children"><a href="https://ansari.nd.edu/about/">About</a></li>
+<li id="primary_97996"{people_state}><a href="{prefix}index.html"{people_current}>People</a></li>
+<li id="primary_113027" class="li-has-children"><a href="https://ansari.nd.edu/student-opportunities/">Student Opportunities</a></li>
+<li id="primary_98005" class="li-has-children"><a href="https://ansari.nd.edu/conference/">Programs</a></li>
+<li id="primary_98654" class="last li-has-children"><a href="https://ansari.nd.edu/news-events/">News &amp; Events</a></li>
 </ul></div></div></div></nav>'''
     page_lede = f'<p class="lede">{escape(lede)}</p>' if lede else ''
     hero_image = f'<p class="image-default"><img src="{prefix}../assets/people-wide.jpg" alt="Scholars gathered in conversation" width="1600" height="700"></p>' if hero else ''
